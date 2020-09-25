@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h3GeuUiAxyEsyDv3zwyhfFo2PaloCa/aPfr0ZbEE5YS/Pb0kz8nn9bf2G18i5ygjORYsvMQPGzVA/CTo1rc+JQ==",
+  "dgSpecHash": "vinyxw/L8mRXJjKoNbxrTJ2BauNY6UX08/72pUTsNoV8FKUFVNjbhGAViEMNj3mzdwb17TgU39gd4onpQDBIKg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+  "projectFilePath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
     "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.8\\microsoft.extensions.primitives.3.1.8.nupkg.sha512",

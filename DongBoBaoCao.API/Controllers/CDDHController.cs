@@ -1,6 +1,7 @@
 ﻿using DongBoBaoCao.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace DongBoBaoCao.API.Controllers
 {
@@ -42,28 +43,28 @@ namespace DongBoBaoCao.API.Controllers
         [HttpGet("DanhSachDuLieu")]
         public IActionResult GetDanhSachDuLieu(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
         {
-            var result = _cDDHService.GetDanhSachDuLieu(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
+            var result = _cDDHService.GetDanhSachDuLieuAsync(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
             return Ok(result);
         }
 
         [HttpGet("DanhSachDuLieuTrongNgay")]
-        public IActionResult GetDanhSachDuLieuTrongNgay(int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuTrongNgayAsync(int page = 1, int limit = 10)
         {
-            var result = _cDDHService.GetDanhSachDuLieuTrongNgay(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
+            var result = await _cDDHService.GetDanhSachDuLieuTrongNgayAsync(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
             return Ok(result);
         }
 
         [HttpPost("DanhSachDuLieu/All")]
-        public IActionResult CreateAllDanhSachDuLieu()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuAsync()
         {
-            int total = _cDDHService.CreateDanhSachDuLieu();
+            int total = await _cDDHService.CreateDanhSachDuLieuAsync();
             return Ok(new { total });
         }
 
         [HttpPost("DanhSachDuLieuTrongNgay/All")]
-        public IActionResult CreateAllDanhSachDuLieuTrongNgay()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuTrongNgayAsync()
         {
-            int total = _cDDHService.CreateDanhSachDuLieuTrongNgay();
+            int total = await _cDDHService.CreateDanhSachDuLieuTrongNgayAsync();
             return Ok(new { total });
         }
     }

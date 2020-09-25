@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Vsm96cM/VkttDqhhA0MJ5uKkt6Escj1eXZoFWN/ksZhMgndJyJ/tmwsi+xxr8xM9nmY4DveUuxXwjBi0oQfV7Q==",
+  "dgSpecHash": "/ryn1q7sWsgsOAlf6k2IdTyiGw4XS7ju1ETICNB3/TU9Ypkrl+TzcSj1ooVBO16YVJTVGv5cqSfeQJgoWgjGRg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.API\\DongBoBaoCao.API.csproj",
+  "projectFilePath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.API\\DongBoBaoCao.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",

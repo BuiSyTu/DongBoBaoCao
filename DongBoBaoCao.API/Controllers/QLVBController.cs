@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DongBoBaoCao.API.Controllers
 {
@@ -44,30 +45,30 @@ namespace DongBoBaoCao.API.Controllers
         }
 
         [HttpGet("DanhSachDuLieu")]
-        public IActionResult GetDanhSachDuLieu(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuAsync(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
         {
-            var result = _qLVBService.GetDanhSachDuLieu(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
+            var result = await _qLVBService.GetDanhSachDuLieuAsync(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
             return Ok(result);
         }
 
         [HttpGet("DanhSachDuLieuTrongNgay")]
-        public IActionResult GetDanhSachDuLieuTrongNgay(int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuTrongNgayAsync(int page = 1, int limit = 10)
         {
-            var result = _qLVBService.GetDanhSachDuLieuTrongNgay(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
+            var result = await _qLVBService.GetDanhSachDuLieuTrongNgayAsync(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
             return Ok(result);
         }
 
         [HttpPost("DanhSachDuLieu/All")]
-        public IActionResult CreateAllDanhSachDuLieu()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuAsync()
         {
-            int total = _qLVBService.CreateDanhSachDuLieu();
+            int total = await _qLVBService.CreateDanhSachDuLieuAsync();
             return Ok(new { total });
         }
 
         [HttpPost("DanhSachDuLieuTrongNgay/All")]
-        public IActionResult CreateAllDanhSachDuLieuTrongNgay()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuTrongNgayAsync()
         {
-            int total = _qLVBService.CreateDanhSachDuLieuTrongNgay();
+            int total = await _qLVBService.CreateDanhSachDuLieuTrongNgayAsync();
             return Ok(new { total });
         }
     }

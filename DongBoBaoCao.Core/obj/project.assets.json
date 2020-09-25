@@ -112,11 +112,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+      "projectUniqueName": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
       "projectName": "DongBoBaoCao.Core",
-      "projectPath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+      "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
       "packagesPath": "C:\\Users\\tubs\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\obj\\",
+      "outputPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

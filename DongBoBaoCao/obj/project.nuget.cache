@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MybdDIzJUlaAHdGjMeXAIGL6PQEUubjXD0ZBMSNz9dM1pmDF8ftMtO4EQfmin3H84IHK8sVf0xO7HqhlmxMBfQ==",
+  "dgSpecHash": "7Fz7TPs1M2Xr83cDMDLfdlpX9AEbKYXp2QD5idv0uspiy0n8CY1XxJR3f1JX3RmpbPzeH4Fajvrt6VyBHaurKA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
+  "projectFilePath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tubs\\.nuget\\packages\\hangfire.aspnetcore\\1.7.13\\hangfire.aspnetcore.1.7.13.nupkg.sha512",
     "C:\\Users\\tubs\\.nuget\\packages\\hangfire.core\\1.7.13\\hangfire.core.1.7.13.nupkg.sha512",

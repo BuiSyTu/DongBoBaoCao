@@ -1,7 +1,5 @@
 ﻿using DongBoBaoCao.API.ViewModels;
 using DongBoBaoCao.Core.Interfaces;
-using DongBoBaoCao.Core.Services;
-using DongBoBaoCao.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -50,30 +48,30 @@ namespace DongBoBaoCao.API.Controllers
         }
 
         [HttpGet("DanhSachDuLieu")]
-        public IActionResult GetDanhSachDuLieu(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuAsync(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
         {
-            var result = _kNTCService.GetDanhSachDuLieu(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
+            var result = await _kNTCService.GetDanhSachDuLieuAsync(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
             return Ok(result);
         }
 
         [HttpGet("DanhSachDuLieuTrongNgay")]
-        public IActionResult GetDanhSachDuLieuTrongNgay(int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuTrongNgayAsync(int page = 1, int limit = 10)
         {
-            var result = _kNTCService.GetDanhSachDuLieuTrongNgay(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
+            var result = await _kNTCService.GetDanhSachDuLieuTrongNgayAsync(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
             return Ok(result);
         }
 
         [HttpPost("DanhSachDuLieu/All")]
-        public IActionResult CreateAllDanhSachDuLieu()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuAsync()
         {
-            int total = _kNTCService.CreateDanhSachDuLieu();
+            int total = await _kNTCService.CreateDanhSachDuLieuAsync();
             return Ok(new { total });
         }
 
         [HttpPost("DanhSachDuLieuTrongNgay/All")]
-        public IActionResult CreateAllDanhSachDuLieuTrongNgay()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuTrongNgayAsync()
         {
-            int total = _kNTCService.CreateDanhSachDuLieuTrongNgay();
+            int total = await _kNTCService.CreateDanhSachDuLieuTrongNgayAsync();
             return Ok(new { total });
         }
 
@@ -91,12 +89,11 @@ namespace DongBoBaoCao.API.Controllers
         private async Task<string> PostURI(Uri urlAPI, HttpContent inputAPI)
         {
             var response = string.Empty;
-            using (var client = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage result = await client.PostAsync(urlAPI, inputAPI);
                 if (result.IsSuccessStatusCode)
                 {
-
                     response = await result.Content.ReadAsStringAsync();
                 }
             }

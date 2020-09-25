@@ -1,6 +1,7 @@
 ﻿using DongBoBaoCao.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
 namespace DongBoBaoCao.API.Controllers
 {
@@ -40,30 +41,30 @@ namespace DongBoBaoCao.API.Controllers
         }
 
         [HttpGet("DanhSachDuLieu")]
-        public IActionResult GetDanhSachDuLieu(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuAsync(string fromDate = "01/01/2020", string toDate = "23/09/2020", int page = 1, int limit = 10)
         {
-            var result = _pAKNService.GetDanhSachDuLieu(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
+            var result = await _pAKNService.GetDanhSachDuLieuAsync(_baseAddress, _danhSachDuLieu, _bearToken, fromDate, toDate, page, limit);
             return Ok(result);
         }
 
         [HttpGet("DanhSachDuLieuTrongNgay")]
-        public IActionResult GetDanhSachDuLieuTrongNgay(int page = 1, int limit = 10)
+        public async Task<IActionResult> GetDanhSachDuLieuTrongNgayAsync(int page = 1, int limit = 10)
         {
-            var result = _pAKNService.GetDanhSachDuLieuTrongNgay(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
+            var result = await _pAKNService.GetDanhSachDuLieuTrongNgayAsync(_baseAddress, _danhSachDuLieuTrongNgay, _bearToken, page, limit);
             return Ok(result);
         }
 
         [HttpPost("DanhSachDuLieu/All")]
-        public IActionResult CreateAllDanhSachDuLieu()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuAsync()
         {
-            int total = _pAKNService.CreateDanhSachDuLieu();
+            int total = await _pAKNService.CreateDanhSachDuLieuAsync();
             return Ok(new { total });
         }
 
         [HttpPost("DanhSachDuLieuTrongNgay/All")]
-        public IActionResult CreateAllDanhSachDuLieuTrongNgay()
+        public async Task<IActionResult> CreateAllDanhSachDuLieuTrongNgayAsync()
         {
-            int total = _pAKNService.CreateDanhSachDuLieuTrongNgay();
+            int total = await _pAKNService.CreateDanhSachDuLieuTrongNgayAsync();
             return Ok(new { total });
         }
     }

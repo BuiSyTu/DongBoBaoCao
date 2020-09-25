@@ -1230,11 +1230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
+      "projectUniqueName": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
       "projectName": "DongBoBaoCao",
-      "projectPath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
+      "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
       "packagesPath": "C:\\Users\\tubs\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao\\obj\\",
+      "outputPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -1253,8 +1253,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
-              "projectPath": "C:\\Users\\tubs\\source\\repos\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj"
+            "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
+              "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj"
             }
           }
         }

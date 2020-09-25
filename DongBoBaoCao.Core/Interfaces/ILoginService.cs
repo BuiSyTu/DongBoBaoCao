@@ -1,4 +1,6 @@
-﻿namespace DongBoBaoCao.Core.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace DongBoBaoCao.Core.Interfaces
 {
     public interface ILoginService
     {

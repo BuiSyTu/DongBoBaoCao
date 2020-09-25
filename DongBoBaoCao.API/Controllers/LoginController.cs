@@ -16,7 +16,7 @@ namespace DongBoBaoCao.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private IConfiguration _config;
+        private readonly IConfiguration _config;
         private readonly string _url;
         private readonly string _user;
         private readonly string _pass;
@@ -36,7 +36,7 @@ namespace DongBoBaoCao.API.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetToken()
+        public async Task<IActionResult> GetTokenAsync()
         {
             Account account = new Account
             {
@@ -44,7 +44,7 @@ namespace DongBoBaoCao.API.Controllers
                 pass = _pass
             };
 
-            var rs = _httpService.Post(_url, _bearToken, account);
+            var rs = await _httpService.Post(_url, _bearToken, account);
             LoginResult result = JsonConvert.DeserializeObject<LoginResult>(rs);
             string token = result.data.accessToken;
             return Ok(token);

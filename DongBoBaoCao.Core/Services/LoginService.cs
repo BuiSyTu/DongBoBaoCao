@@ -2,6 +2,7 @@
 using DongBoBaoCao.Core.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace DongBoBaoCao.Core.Services
 {
@@ -35,6 +36,12 @@ namespace DongBoBaoCao.Core.Services
             };
 
             var rs = _httpService.Post(_url, _bearToken, account);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
             LoginResult result = JsonConvert.DeserializeObject<LoginResult>(rs);
             string token = result.data.accessToken;
             return token;
