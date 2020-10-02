@@ -10,5 +10,7 @@ namespace DongBoBaoCao.Core.Interfaces
         string Get(string baseAddress, string uri, string bearToken, object jObject);
         string Post(string baseAddress, string uri, string bearToken, object jObject);
         string Post(string address, string bearToken, object jObject);
+        string Put(string address, string bearToken, object jObject);
+        string Delete(string address, string bearToken, object jObject);
     }
 }

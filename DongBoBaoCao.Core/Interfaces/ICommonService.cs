@@ -18,5 +18,7 @@ namespace DongBoBaoCao.Core.Interfaces
         ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit);
         ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string bearToken, int page);
         ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit);
+        ChartOutput GetDuLieuLoc(ChartInput input);
+        bool? AddOrUpdateIndicator(OUDataItem oUDataItem);
     }
 }

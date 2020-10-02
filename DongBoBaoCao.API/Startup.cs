@@ -33,6 +33,7 @@ namespace DongBoBaoCao.API
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<IDateTimeService, DateTimeService>();
 
             services.AddScoped<IBCService, BCService>();
             services.AddScoped<ICDDHService, CDDHService>();

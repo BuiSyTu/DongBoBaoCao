@@ -8,6 +8,7 @@ using Hangfire;
 using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace DongBoBaoCao
 {
@@ -25,11 +26,18 @@ namespace DongBoBaoCao
         {
             services.AddControllersWithViews();
 
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
+
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             // Add services (Dependency injection)
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddScoped<IDuLieuChungService, DuLieuChungService>();
 
             services.AddScoped<IBCService, BCService>();
             services.AddScoped<ICDDHService, CDDHService>();
@@ -62,7 +70,7 @@ namespace DongBoBaoCao
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env, ICommonService commonService)
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env, ICommonService commonService, IHttpService httpService)
         {
             if (env.IsDevelopment())
             {
@@ -82,18 +90,20 @@ namespace DongBoBaoCao
             // Hangfire jobs
             //RecurringJob.AddOrUpdate(() => Console.WriteLine("abc"), "*/3 6-20 * * 1-7", TimeZoneInfo.Local); // Mỗi 3 phút từ 6 - 22h, từ thứ 2 đến CN
 
+            DuLieuChungService duLieuChungService = new DuLieuChungService(Configuration, httpService);
+            RecurringJob.AddOrUpdate(() => duLieuChungService.Truncate(), "0 0 1 * *", TimeZoneInfo.Local);
+
             PAKNService pAKNService = new PAKNService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "*/1 6-20 * * 1-7", TimeZoneInfo.Local); //*/1 6-20 * * 1-7
-            //RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieuTrongNgay(), "*/1 6-20 * * 1-7", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
             KNTCService kNTCService = new KNTCService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "*/1 6-20 * * 1-7", TimeZoneInfo.Local); //*/1 6-20 * * 1-7
+            RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
             QLCBService qLCBService = new QLCBService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => qLCBService.CreateDanhSachDuLieu(), "*/1 6-20 * * 1-7", TimeZoneInfo.Local); //*/1 6-20 * * 1-7
+            RecurringJob.AddOrUpdate(() => qLCBService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
             QLCHService qLCHService = new QLCHService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "*/1 6-20 * * 1-7", TimeZoneInfo.Local); //*/1 6-20 * * 1-7
+            RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
 
 

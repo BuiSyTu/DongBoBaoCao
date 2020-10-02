@@ -1,10 +1,8 @@
-﻿using DongBoBaoCao.Core.Interfaces;
-using DongBoBaoCao.Core.Services;
+﻿using DongBoBaoCao.API.ViewModels;
+using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DongBoBaoCao.API.Controllers
@@ -15,16 +13,18 @@ namespace DongBoBaoCao.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IQLVBService _qLVBService;
+        private readonly IDateTimeService _dateTimeService;
 
         private readonly string _baseAddress;
         private readonly string _bearToken;
         private readonly string _danhSachDuLieu;
         private readonly string _danhSachDuLieuTrongNgay;
 
-        public QLVBController(IConfiguration config, IQLVBService qLVBService)
+        public QLVBController(IConfiguration config, IQLVBService qLVBService, IDateTimeService dateTimeService)
         {
             _config = config;
             _qLVBService = qLVBService;
+            _dateTimeService = dateTimeService;
 
             _baseAddress = _config.GetSection("QLCH:baseAddress").Value;
             _bearToken = _config.GetSection("QLCH:bearToken").Value;
@@ -70,6 +70,27 @@ namespace DongBoBaoCao.API.Controllers
         {
             int total = await _qLVBService.CreateDanhSachDuLieuTrongNgayAsync();
             return Ok(new { total });
+        }
+
+        [HttpGet("Loc")]
+        public IActionResult GetIndicatorValueByMonth(int month = 8, int year = 2020, string officeCode = "000-00-12-H40", string fields = "TinhTrang", string values = "null")
+        {
+            var tuNgay = _dateTimeService.GetStartDateOfMonth(month, year);
+            var denNgay = _dateTimeService.GetLastDateOfMonth(month, year);
+
+            var vanBan = new ChartInput
+            {
+                tuNgay = tuNgay,
+                denNgay = denNgay,
+                fields = fields,
+                values = values,
+                maDonVi = officeCode,
+                maPhanMem = "QLVB"
+            };
+
+            var rs = _qLVBService.GetDuLieuLoc(vanBan);
+
+            return Ok(rs);
         }
     }
 }

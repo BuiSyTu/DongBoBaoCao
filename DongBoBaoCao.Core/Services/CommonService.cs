@@ -131,7 +131,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public async Task<ICollection<VanBan>> GetDanhSachDuLieuAsync(string baseAddress, string bearToken, int page)
@@ -154,7 +154,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
@@ -178,7 +178,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public async Task<ICollection<VanBan>> GetDanhSachDuLieuAsync(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
@@ -202,7 +202,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string bearToken, int page)
@@ -222,7 +222,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public async Task<ICollection<VanBan>> GetDanhSachDuLieuTrongNgayAsync(string baseAddress, string bearToken, int page)
@@ -242,7 +242,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
@@ -262,7 +262,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
         }
 
         public async Task<ICollection<VanBan>> GetDanhSachDuLieuTrongNgayAsync(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
@@ -282,7 +282,33 @@ namespace DongBoBaoCao.Core.Services
             }
 
             APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
+            return (ICollection<VanBan>)result.data;
+        }
+
+        public ChartOutput GetDuLieuLoc(ChartInput input)
+        {
+            var rs = _httpService.Post("https://baocao.hanhchinhcong.net/_vti_bin/td.bcdh/bcdhservice.svc/Loc", null, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            ChartOutput result = JsonConvert.DeserializeObject<ChartOutput>(rs);
+            return result;
+        }
+
+        public bool? AddOrUpdateIndicator(OUDataItem oUDataItem)
+        {
+            var rs = _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            ChartOutput result = JsonConvert.DeserializeObject<ChartOutput>(rs);
+            return false;
         }
     }
 }

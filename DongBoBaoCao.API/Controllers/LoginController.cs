@@ -36,7 +36,7 @@ namespace DongBoBaoCao.API.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> GetTokenAsync()
+        public IActionResult GetToken()
         {
             Account account = new Account
             {
@@ -44,7 +44,7 @@ namespace DongBoBaoCao.API.Controllers
                 pass = _pass
             };
 
-            var rs = await _httpService.Post(_url, _bearToken, account);
+            var rs = _httpService.Post(_url, _bearToken, account);
             LoginResult result = JsonConvert.DeserializeObject<LoginResult>(rs);
             string token = result.data.accessToken;
             return Ok(token);
