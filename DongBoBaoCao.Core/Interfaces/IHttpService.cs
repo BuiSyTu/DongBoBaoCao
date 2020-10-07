@@ -12,5 +12,7 @@ namespace DongBoBaoCao.Core.Interfaces
         string Post(string address, string bearToken, object jObject);
         string Put(string address, string bearToken, object jObject);
         string Delete(string address, string bearToken, object jObject);
+
+        string PostVinhLong(string address, string bearToken, object jObject);
     }
 }

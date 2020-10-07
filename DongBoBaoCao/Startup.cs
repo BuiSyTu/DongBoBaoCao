@@ -9,6 +9,7 @@ using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using DongBoBaoCao.Core.Services.VinhLong;
 
 namespace DongBoBaoCao
 {
@@ -38,6 +39,7 @@ namespace DongBoBaoCao
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IDuLieuChungService, DuLieuChungService>();
+            services.AddScoped<IDateTimeService, DateTimeService>();
 
             services.AddScoped<IBCService, BCService>();
             services.AddScoped<ICDDHService, CDDHService>();
@@ -47,6 +49,7 @@ namespace DongBoBaoCao
             services.AddScoped<IQLCBService, QLCBService>();
             services.AddScoped<IQLCHService, QLCHService>();
             services.AddScoped<IQLVBService, QLVBService>();
+            services.AddScoped<TruongHocService>();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -70,7 +73,7 @@ namespace DongBoBaoCao
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env, ICommonService commonService, IHttpService httpService)
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env, ICommonService commonService, IHttpService httpService, IDateTimeService dateTimeService)
         {
             if (env.IsDevelopment())
             {
@@ -104,6 +107,13 @@ namespace DongBoBaoCao
 
             QLCHService qLCHService = new QLCHService(Configuration, commonService);
             RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+
+            QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
+            RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
+
+            TruongHocService truongHocService = new TruongHocService(httpService, Configuration);
+            RecurringJob.AddOrUpdate(() => truongHocService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
 
 
 

@@ -113,6 +113,32 @@ namespace DongBoBaoCao.Core.Services
             return result;
         }
 
+        public string PostVinhLong(string address, string bearToken, object jObject)
+        {
+            string dataString = JsonConvert.SerializeObject(jObject);
+            StringContent data = new StringContent(dataString, Encoding.UTF8, "application/json");
+            using HttpClient client = new HttpClient();
+            var req = new HttpRequestMessage(HttpMethod.Post, address) { Content = data };
+            req.Headers.Add("Accept", "application/json;odata=verbose");
+            req.Headers.Add("Username", "vlg_sync");
+            req.Headers.Add("password", "vlg@2020#");
+            if (!string.IsNullOrEmpty(bearToken))
+            {
+                req.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearToken);
+            }
+
+            var res = client.SendAsync(req);
+
+            string result = string.Empty;
+
+            if (res.Result.IsSuccessStatusCode)
+            {
+                result = res.Result.Content.ReadAsStringAsync().Result;
+            }
+
+            return result;
+        }
+
         public string Post(string baseAddress, string uri, string bearToken, object jObject)
         {
             string dataString = JsonConvert.SerializeObject(jObject);

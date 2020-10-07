@@ -92,5 +92,13 @@ namespace DongBoBaoCao.API.Controllers
 
             return Ok(rs);
         }
+
+        [HttpGet("Test")]
+        public IActionResult SSSSS(int month = 8, int year = 2020, string officeCode = "000-00-12-H40", string fields = "TinhTrang", string values = "null")
+        {
+            var rs = _qLVBService.Init();
+
+            return Ok(rs);
+        }
     }
 }

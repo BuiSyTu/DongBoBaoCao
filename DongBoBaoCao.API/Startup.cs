@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
+using DongBoBaoCao.Core.Services.VinhLong;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -43,6 +44,7 @@ namespace DongBoBaoCao.API
             services.AddScoped<IQLCBService, QLCBService>();
             services.AddScoped<IQLCHService, QLCHService>();
             services.AddScoped<IQLVBService, QLVBService>();
+            services.AddScoped<TruongHocService>();
 
             services.AddSwaggerGen();
         }
