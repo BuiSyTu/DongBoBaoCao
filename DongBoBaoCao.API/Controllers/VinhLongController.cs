@@ -13,16 +13,25 @@ namespace DongBoBaoCao.API.Controllers
     public class VinhLongController : ControllerBase
     {
         private readonly TruongHocService _truongHocService;
+        private readonly TinhThanhService _tinhThanhService;
 
-        public VinhLongController(TruongHocService truongHocService)
+        public VinhLongController(TruongHocService truongHocService, TinhThanhService tinhThanhService)
         {
             _truongHocService = truongHocService;
+            _tinhThanhService = tinhThanhService;
         }
 
         [HttpGet("TruongHoc")]
         public IActionResult GetTruongHoc()
         {
             var result = _truongHocService.Get();
+            return Ok(result);
+        }
+
+        [HttpGet("TinhThanh")]
+        public IActionResult GetTinhThanh()
+        {
+            var result = _tinhThanhService.Get();
             return Ok(result);
         }
     }

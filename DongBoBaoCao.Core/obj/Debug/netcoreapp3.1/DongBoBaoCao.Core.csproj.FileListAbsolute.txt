@@ -14,9 +14,9 @@ E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\appsett
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.deps.json
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.dll
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.pdb
-E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csprojAssemblyReference.cache
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.AssemblyInfoInputs.cache
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.AssemblyInfo.cs
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csproj.CoreCompileInputs.cache
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.dll
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.pdb
+E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csprojAssemblyReference.cache

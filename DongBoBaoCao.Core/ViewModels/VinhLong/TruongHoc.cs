@@ -7,6 +7,7 @@ namespace DongBoBaoCao.Core.ViewModels.VinhLong
     public class TruongHoc
     {
         public string ID { get; set; }
+        public string CapHoc { get; set; }
         public string MaTruongHoc { get; set; }
         public string TenTruongHoc { get; set; }
         public string TrangThai { get; set; }

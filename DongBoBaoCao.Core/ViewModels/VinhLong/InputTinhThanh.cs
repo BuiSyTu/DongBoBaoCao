@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DongBoBaoCao.Core.ViewModels.VinhLong
 {
-    public class Input
+    public class InputTinhThanh
     {
         public string maTinhThanh { get; set; }
     }

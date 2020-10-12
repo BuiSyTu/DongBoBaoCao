@@ -45,6 +45,7 @@ namespace DongBoBaoCao.API
             services.AddScoped<IQLCHService, QLCHService>();
             services.AddScoped<IQLVBService, QLVBService>();
             services.AddScoped<TruongHocService>();
+            services.AddScoped<TinhThanhService>();
 
             services.AddSwaggerGen();
         }

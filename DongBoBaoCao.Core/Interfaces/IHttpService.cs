@@ -8,11 +8,13 @@ namespace DongBoBaoCao.Core.Interfaces
         Task<string> PostAsync(string baseAddress, string uri, string bearToken, object jObject);
         Task<string> PostAsync(string address, string bearToken, object jObject);
         string Get(string baseAddress, string uri, string bearToken, object jObject);
+        string Get(string address, string bearToken, object jObject);
         string Post(string baseAddress, string uri, string bearToken, object jObject);
         string Post(string address, string bearToken, object jObject);
         string Put(string address, string bearToken, object jObject);
         string Delete(string address, string bearToken, object jObject);
 
         string PostVinhLong(string address, string bearToken, object jObject);
+        string GetVinhLong(string address, string bearToken, object jObject);
     }
 }

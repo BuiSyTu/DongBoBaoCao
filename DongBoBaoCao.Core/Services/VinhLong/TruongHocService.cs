@@ -12,8 +12,9 @@ namespace DongBoBaoCao.Core.Services.VinhLong
     {
         private readonly IHttpService _httpService;
         private readonly IConfiguration _config;
-        string urlGetTruongHoc;
-        string urlCreateTruongHoc;
+        private string urlGetTruongHoc;
+        private string urlCreateTruongHoc;
+        private string urlCreateQuanHuyen;
 
         public TruongHocService(IHttpService httpService, IConfiguration config)
         {
@@ -22,11 +23,12 @@ namespace DongBoBaoCao.Core.Services.VinhLong
 
             urlGetTruongHoc = _config.GetSection("VinhLong:GetTruongHoc:url").Value;
             urlCreateTruongHoc = _config.GetSection("VinhLong:CreateTruongHoc:url").Value;
+            urlCreateQuanHuyen = _config.GetSection("VinhLong:CreateQuanHuyen:url").Value;
         }
 
         public List<TruongHoc> Get()
         {
-            var input = new Input
+            var input = new InputTruongHoc
             {
                 maTinhThanh = "86"
             };
@@ -40,7 +42,7 @@ namespace DongBoBaoCao.Core.Services.VinhLong
 
         public int Create()
         {
-            var input = new Input
+            var input = new InputTinhThanh
             {
                 maTinhThanh = "86"
             };
