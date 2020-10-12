@@ -9,7 +9,6 @@ using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
 using Microsoft.AspNetCore.Server.IISIntegration;
-using DongBoBaoCao.Core.Services.VinhLong;
 
 namespace DongBoBaoCao
 {
@@ -49,21 +48,6 @@ namespace DongBoBaoCao
             services.AddScoped<IQLCBService, QLCBService>();
             services.AddScoped<IQLCHService, QLCHService>();
             services.AddScoped<IQLVBService, QLVBService>();
-            services.AddScoped<TruongHocService>();
-            services.AddScoped<TinhThanhService>();
-            services.AddScoped<QuanHuyenService>();
-            services.AddScoped<DonViGiaoDucService>();
-            services.AddScoped<PhuongXaService>();
-            services.AddScoped<DanTocService>();
-            services.AddScoped<TonGiaoService>();
-            services.AddScoped<GiaoVienService>();
-            services.AddScoped<HocSinhService>();
-            services.AddScoped<LopHocService>();
-
-            services.AddScoped<DVCHoSoService>();
-            services.AddScoped<DVCLinhVucService>();
-            services.AddScoped<DVCDonViService>();
-            services.AddScoped<DVCThuTucHanhChinhService>();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -125,48 +109,6 @@ namespace DongBoBaoCao
             QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
             RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            TruongHocService truongHocService = new TruongHocService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => truongHocService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            TinhThanhService tinhThanhService = new TinhThanhService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => tinhThanhService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            QuanHuyenService quanHuyenService = new QuanHuyenService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => quanHuyenService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DonViGiaoDucService donViGiaoDucService = new DonViGiaoDucService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => donViGiaoDucService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            PhuongXaService phuongXaService = new PhuongXaService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => phuongXaService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DVCHoSoService dVCHoSoService = new DVCHoSoService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => dVCHoSoService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DVCLinhVucService dVCLinhVucService = new DVCLinhVucService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => dVCLinhVucService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DVCDonViService dVCDonViService = new DVCDonViService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => dVCDonViService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DVCThuTucHanhChinhService dVCThuTucHanhChinhService = new DVCThuTucHanhChinhService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => dVCThuTucHanhChinhService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            DanTocService danTocService = new DanTocService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => danTocService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            TonGiaoService tonGiaoService = new TonGiaoService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => tonGiaoService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            GiaoVienService giaoVienService = new GiaoVienService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => giaoVienService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            HocSinhService hocSinhService = new HocSinhService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => hocSinhService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            LopHocService lopHocService = new LopHocService(httpService, Configuration);
-            RecurringJob.AddOrUpdate(() => lopHocService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
 
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 

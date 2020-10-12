@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao", "DongBoBaoCao\DongBoBaoCao.csproj", "{2FBAFC15-4F63-4BCB-8C53-B286C79E1788}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.Core", "DongBoBaoCao.Core\DongBoBaoCao.Core.csproj", "{1C700C41-2024-4783-B59D-9C10DB75F704}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.Core", "DongBoBaoCao.Core\DongBoBaoCao.Core.csproj", "{1C700C41-2024-4783-B59D-9C10DB75F704}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.API", "DongBoBaoCao.API\DongBoBaoCao.API.csproj", "{1959163A-47DD-4B5B-941D-160E93BB7875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.API", "DongBoBaoCao.API\DongBoBaoCao.API.csproj", "{1959163A-47DD-4B5B-941D-160E93BB7875}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.VinhLong", "DongBoBaoCao.VinhLong\DongBoBaoCao.VinhLong.csproj", "{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1959163A-47DD-4B5B-941D-160E93BB7875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1959163A-47DD-4B5B-941D-160E93BB7875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1959163A-47DD-4B5B-941D-160E93BB7875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

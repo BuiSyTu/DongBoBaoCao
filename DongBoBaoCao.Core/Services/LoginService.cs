@@ -2,7 +2,6 @@
 using DongBoBaoCao.Core.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
 
 namespace DongBoBaoCao.Core.Services
 {

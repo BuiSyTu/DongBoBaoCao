@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\VinhLong\**" />
+    <Compile Remove="ViewModels\VinhLong\**" />
+    <EmbeddedResource Remove="Services\VinhLong\**" />
+    <EmbeddedResource Remove="ViewModels\VinhLong\**" />
+    <None Remove="Services\VinhLong\**" />
+    <None Remove="ViewModels\VinhLong\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
   </ItemGroup>

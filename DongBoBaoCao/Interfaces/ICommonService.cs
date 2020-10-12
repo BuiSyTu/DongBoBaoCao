@@ -1,4 +1,4 @@
-﻿using DongBoBaoCao.ViewModels;
+﻿using DongBoBaoCao.Core.ViewModels;
 using System.Collections.Generic;
 
 namespace DongBoBaoCao.Interfaces
