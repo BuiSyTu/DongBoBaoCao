@@ -3,10 +3,11 @@ using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
 using System.Threading.Tasks;
+using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao.Core.Services
 {
-    public class CDDHService : ICDDHService
+    public class QLCBService : IQLCBService
     {
         private readonly IConfiguration _config;
         private readonly ICommonService _commonService;
@@ -15,13 +16,13 @@ namespace DongBoBaoCao.Core.Services
         private readonly string _bearToken;
 
 
-        public CDDHService(IConfiguration config, ICommonService commonService)
+        public QLCBService(IConfiguration config, ICommonService commonService)
         {
             _config = config;
             _commonService = commonService;
 
-            _baseAddress = _config.GetSection("CDDH:baseAddress").Value;
-            _bearToken = _config.GetSection("CDDH:bearToken").Value;
+            _baseAddress = _config.GetSection("QLCB:baseAddress").Value;
+            _bearToken = _config.GetSection("QLCB:bearToken").Value;
         }
 
         public int CreateDanhSachDuLieu()

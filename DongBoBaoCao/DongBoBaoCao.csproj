@@ -31,11 +31,9 @@
   <ItemGroup>
     <Compile Include="Interfaces\IBCService.cs" />
     <Compile Include="Interfaces\ICDDHService.cs" />
-    <Compile Include="Interfaces\ICommonService.cs" />
+    <Compile Include="Interfaces\IDuLieuChungService.cs" />
     <Compile Include="Interfaces\IDVCService.cs" />
-    <Compile Include="Interfaces\IHttpService.cs" />
     <Compile Include="Interfaces\IKNTCService.cs" />
-    <Compile Include="Interfaces\ILoginService.cs" />
     <Compile Include="Interfaces\IPAKNService.cs" />
     <Compile Include="Interfaces\IQLCBService.cs" />
     <Compile Include="Interfaces\IQLCHService.cs" />
@@ -62,7 +60,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -9,6 +9,7 @@ using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
 using Microsoft.AspNetCore.Server.IISIntegration;
+using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao
 {

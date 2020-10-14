@@ -5,6 +5,7 @@ using DongBoBaoCao.Core.ViewModels;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System;
+using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao.Core.Services
 {

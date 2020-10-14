@@ -3,6 +3,7 @@ using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
 using System.Threading.Tasks;
+using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao.Core.Services
 {

@@ -3,10 +3,11 @@ using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
 using System.Threading.Tasks;
+using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao.Core.Services
 {
-    public class QLCHService : IQLCHService
+    public class PAKNService : IPAKNService
     {
         private readonly IConfiguration _config;
         private readonly ICommonService _commonService;
@@ -15,13 +16,14 @@ namespace DongBoBaoCao.Core.Services
         private readonly string _bearToken;
 
 
-        public QLCHService(IConfiguration config, ICommonService commonService)
+
+        public PAKNService(IConfiguration config, ICommonService commonService)
         {
             _config = config;
             _commonService = commonService;
 
-            _baseAddress = _config.GetSection("QLCH:baseAddress").Value;
-            _bearToken = _config.GetSection("QLCH:bearToken").Value;
+            _baseAddress = _config.GetSection("PAKN:baseAddress").Value;
+            _bearToken = _config.GetSection("PAKN:bearToken").Value;
         }
 
         public int CreateDanhSachDuLieu()
