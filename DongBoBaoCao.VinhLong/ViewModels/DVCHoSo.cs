@@ -14,6 +14,7 @@ namespace DongBoBaoCao.VinhLong.ViewModels
         public string NgayHoanThanh { get; set; }
         public string NoiNhan { get; set; }
         public Boolean NhanQuaMang { get; set; }
+        public string NgayHenTra { get; set; }
     }
 
     public class ApiDVCHoSo

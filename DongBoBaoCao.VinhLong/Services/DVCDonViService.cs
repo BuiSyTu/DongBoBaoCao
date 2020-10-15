@@ -55,6 +55,7 @@ namespace DongBoBaoCao.VinhLong.Services
 
             var length = items.Count;
 
+            int id = 1;
             int count = 0;
             int countAll = 0;
             List<DVCDonVi> temp = new List<DVCDonVi>();

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.Core", "DongBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.API", "DongBoBaoCao.API\DongBoBaoCao.API.csproj", "{1959163A-47DD-4B5B-941D-160E93BB7875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.VinhLong", "DongBoBaoCao.VinhLong\DongBoBaoCao.VinhLong.csproj", "{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.VinhLong", "DongBoBaoCao.VinhLong\DongBoBaoCao.VinhLong.csproj", "{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.VinhLong.NongNghiep", "DongBoBaoCao.VinhLong.NongNghiep\DongBoBaoCao.VinhLong.NongNghiep.csproj", "{AAA0540C-D688-478E-836F-45D149185C76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A12E9FD-7DFA-491E-BA0D-098F6E9CFC1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA0540C-D688-478E-836F-45D149185C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA0540C-D688-478E-836F-45D149185C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA0540C-D688-478E-836F-45D149185C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA0540C-D688-478E-836F-45D149185C76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
