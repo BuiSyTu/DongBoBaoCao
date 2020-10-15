@@ -94,7 +94,15 @@ namespace DongBoBaoCao.VinhLong.Services
 
         public int DeleteAndCreateNew()
         {
-            throw new System.NotImplementedException();
+            var checkDelete = Delete();
+            int result = 0;
+
+            if (checkDelete.Value)
+            {
+                result = Create();
+            }
+
+            return result;
         }
     }
 }

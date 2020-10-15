@@ -108,8 +108,8 @@ namespace DongBoBaoCao.VinhLong
             //DVCLinhVucService dVCLinhVucService = new DVCLinhVucService(httpService, Configuration);
             //RecurringJob.AddOrUpdate(() => dVCLinhVucService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            //DVCDonViService dVCDonViService = new DVCDonViService(httpService, Configuration);
-            //RecurringJob.AddOrUpdate(() => dVCDonViService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
+            DVCDonViService dVCDonViService = new DVCDonViService(httpService, Configuration);
+            RecurringJob.AddOrUpdate(() => dVCDonViService.DeleteAndCreateNew(), "0 0 1 * *", TimeZoneInfo.Local);
 
             //DVCThuTucHanhChinhService dVCThuTucHanhChinhService = new DVCThuTucHanhChinhService(httpService, Configuration);
             //RecurringJob.AddOrUpdate(() => dVCThuTucHanhChinhService.Create(), "0 0 1 * *", TimeZoneInfo.Local);
