@@ -13,5 +13,6 @@ namespace DongBoBaoCao.Interfaces
         ChartOutput GetDuLieuLoc(ChartInput input);
         void AddChiTieuBaoCao();
         List<Indicator> Init();
+        void RandomChiTieuBaoCao();
     }
 }

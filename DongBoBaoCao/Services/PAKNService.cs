@@ -57,7 +57,7 @@ namespace DongBoBaoCao.Core.Services
 
         public void RandomChiTieuBaoCao()
         {
-            var dataYears = new List<int> { 2016, 2017, 2018, 2019, 2020 };
+            var dataYears = new List<int> { 2019, 2020 };
             var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 

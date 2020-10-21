@@ -106,6 +106,10 @@ namespace DongBoBaoCao
             QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
             RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => qLVBService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+
+            CDDHService cDDHService = new CDDHService(Configuration, commonService, httpService);
+            RecurringJob.AddOrUpdate(() => cDDHService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
