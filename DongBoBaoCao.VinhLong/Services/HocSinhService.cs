@@ -134,5 +134,76 @@ namespace DongBoBaoCao.VinhLong.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public void AddChiTieuBaoCao()
+
+        {
+            var lstMaQuanHuyen = new List<string> { "855", "857", "858", "859", "860", "861", "862", "863" };
+            foreach (var quanHuyen in lstMaQuanHuyen)
+            {
+                var rsDonVi = _httpService.Get("https://baocao.hanhchinhcong.net/_vti_bin/td.bcdh.vinhlong/bcdhvinhlongservice.svc/PhuongXa", null, null);
+                List<DonViVM> lstDonVi = JsonConvert.DeserializeObject<List<DonViVM>>(rsDonVi);
+                foreach (var donVi in lstDonVi)
+                {
+
+                    var url = "https://baocao.hanhchinhcong.net/_vti_bin/td.bcdh.vinhlong/bcdhvinhlongservice.svc/GetTongSoTatCaHocSinh?maTinhThanh=86&maQuanHuyen=" + quanHuyen + "&namHoc=2020" + "&maPhuongXa=" + donVi.MaPhuongXa;
+                    var lstHocSinh = _httpService.Get(url, null, null);
+                    if (lstHocSinh == "")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        TruongHocVM lstHS = JsonConvert.DeserializeObject<TruongHocVM>(lstHocSinh);
+
+                        
+                            var value = lstHS.GiaTri;
+                            var textValue = value.ToString();
+                            var offCode = lstHS.MaDonVi;
+                            var rs1 = _httpService.Post("https://bc.vinhlong.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDiaBan", null, new AreaDataItem
+                            {
+                                dataTypeId = 3, // Thực hiện
+                                dataYear = 2020,
+                                indicatorCode = lstHS.MaChiTieu,
+                                areaCode = offCode,
+                                periodId = 1,
+                                value = int.Parse(value),
+                                textValue = textValue
+                            });
+
+                        
+                    }
+                }
+
+            }
+
+
+        }
+
+        public void AddChiTieuBaoCao1()
+        {
+
+            var url = "https://baocao.hanhchinhcong.net/_vti_bin/td.bcdh.vinhlong/bcdhvinhlongservice.svc/GetTongSoHocSinh?maTinhThanh=86&namHoc=2020";
+            var lstHocSinh = _httpService.Get(url, null, null);
+
+            List<TruongHocVM> lstHS = JsonConvert.DeserializeObject<List<TruongHocVM>>(lstHocSinh);
+
+            foreach (var hs in lstHS)
+            {
+                var value = hs.GiaTri;
+                var textValue = value.ToString();
+                var offCode = hs.MaDonVi;
+                var rs1 = _httpService.Post("https://baoccao.vinhlong.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDiaBan", null, new AreaDataItem
+                {
+                    dataTypeId = 3, // Thực hiện
+                    dataYear = 2020,
+                    indicatorCode = hs.MaChiTieu,
+                    areaCode = "86",
+                    periodId = 1,
+                    value = int.Parse(value),
+                    textValue = textValue
+                });
+            }
+        }
     }
 }

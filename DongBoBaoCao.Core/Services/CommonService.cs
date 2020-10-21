@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using DongBoBaoCao.Core.Interfaces;
-using System.Threading.Tasks;
 
 namespace DongBoBaoCao.Core.Services
 {
@@ -21,6 +20,8 @@ namespace DongBoBaoCao.Core.Services
         private readonly string _fromDate;
         private readonly string _toDate;
         private readonly string _token;
+        private readonly string _locUrl;
+        private readonly string _capNhatChiTieuDonViUrl;
 
         public CommonService(IConfiguration config, IHttpService httpService, ILoginService loginService)
         {
@@ -37,6 +38,8 @@ namespace DongBoBaoCao.Core.Services
             _fromDate = _config.GetSection("fromDate").Value;
             _toDate = _config.GetSection("toDate").Value;
             _token = _loginService.GetToken();
+            _locUrl = _config.GetSection("Loc:url").Value;
+            _capNhatChiTieuDonViUrl = _config.GetSection("CapNhatChiTieuDonVi:url").Value;
         }
 
         public int CreateDanhSachDuLieu(string baseAddress, string bearToken)
@@ -50,24 +53,6 @@ namespace DongBoBaoCao.Core.Services
                 if (listVanBan is null || listVanBan.Count <= 0) break;
 
                 _httpService.Post(_baseAddressDw, _extensionDw, null, listVanBan);
-                total += listVanBan.Count;
-                page++;
-            }
-
-            return total;
-        }
-
-        public async Task<int> CreateDanhSachDuLieuAsync(string baseAddress, string bearToken)
-        {
-            int page = 1;
-            int total = 0;
-
-            while (true)
-            {
-                ICollection<VanBan> listVanBan = await GetDanhSachDuLieuAsync(baseAddress, bearToken, page);
-                if (listVanBan is null || listVanBan.Count <= 0) break;
-
-                await _httpService.PostAsync(_baseAddressDw, _extensionDw, null, listVanBan);
                 total += listVanBan.Count;
                 page++;
             }
@@ -93,23 +78,6 @@ namespace DongBoBaoCao.Core.Services
             return total;
         }
 
-        public async Task<int> CreateDanhSachDuLieuTrongNgayAsync(string baseAddress, string bearToken)
-        {
-            int page = 1;
-            int total = 0;
-
-            while (true)
-            {
-                var listVanBan = await GetDanhSachDuLieuTrongNgayAsync(baseAddress, bearToken, page);
-                if (listVanBan is null || listVanBan.Count <= 0) break;
-
-                await _httpService.PostAsync(_baseAddressDw, _extensionDw, null, listVanBan);
-                total += listVanBan.Count;
-                page++;
-            }
-
-            return total;
-        }
 
         public ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string bearToken, int page)
         {
@@ -124,29 +92,6 @@ namespace DongBoBaoCao.Core.Services
                 limit = _limit
             };
             var rs = _httpService.Post(baseAddress, _danhSachDuLieu, bearToken, input);
-
-            if (string.IsNullOrEmpty(rs))
-            {
-                return null;
-            }
-
-            APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
-        }
-
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuAsync(string baseAddress, string bearToken, int page)
-        {
-            string token = _token ?? _loginService.GetToken();
-
-            var input = new DanhSachDuLieuInput
-            {
-                token = token,
-                fromDate = _fromDate,
-                toDate = _toDate,
-                page = page,
-                limit = _limit
-            };
-            var rs = await _httpService.PostAsync(baseAddress, _danhSachDuLieu, bearToken, input);
 
             if (string.IsNullOrEmpty(rs))
             {
@@ -181,30 +126,6 @@ namespace DongBoBaoCao.Core.Services
             return result.data;
         }
 
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuAsync(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
-        {
-            string token = _token ?? _loginService.GetToken();
-
-            var danhSachDuLieuInput = new DanhSachDuLieuInput
-            {
-                fromDate = fromDate,
-                toDate = toDate,
-                page = page,
-                limit = limit,
-                token = token
-            };
-
-            var rs = await _httpService.PostAsync(baseAddress, danhSachDuLieu, bearToken, danhSachDuLieuInput);
-
-            if (string.IsNullOrEmpty(rs))
-            {
-                return null;
-            }
-
-            APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
-        }
-
         public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string bearToken, int page)
         {
             var input = new DanhSachDuLieuTrongNgayInput
@@ -215,26 +136,6 @@ namespace DongBoBaoCao.Core.Services
             };
 
             var rs = _httpService.Post(baseAddress, _danhSachDuLieuTrongNgay, bearToken, input);
-
-            if (string.IsNullOrEmpty(rs))
-            {
-                return null;
-            }
-
-            APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
-        }
-
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuTrongNgayAsync(string baseAddress, string bearToken, int page)
-        {
-            var input = new DanhSachDuLieuTrongNgayInput
-            {
-                token = _token,
-                page = page,
-                limit = _limit
-            };
-
-            var rs = await _httpService.PostAsync(baseAddress, _danhSachDuLieuTrongNgay, bearToken, input);
 
             if (string.IsNullOrEmpty(rs))
             {
@@ -265,29 +166,9 @@ namespace DongBoBaoCao.Core.Services
             return result.data;
         }
 
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuTrongNgayAsync(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
-        {
-            var danhSachDuLieuTrongNgayInput = new DanhSachDuLieuTrongNgayInput
-            {
-                page = page,
-                limit = limit,
-                token = _token
-            };
-
-            var rs = await _httpService.PostAsync(baseAddress, danhSachDuLieuTrongNgay, bearToken, danhSachDuLieuTrongNgayInput);
-
-            if (string.IsNullOrEmpty(rs))
-            {
-                return null;
-            }
-
-            APIResult result = JsonConvert.DeserializeObject<APIResult>(rs);
-            return result.data;
-        }
-
         public ChartOutput GetDuLieuLoc(ChartInput input)
         {
-            var rs = _httpService.Post("https://baocao.hanhchinhcong.net/_vti_bin/td.bcdh/bcdhservice.svc/Loc", null, input);
+            var rs = _httpService.Post(_locUrl, null, input);
 
             if (string.IsNullOrEmpty(rs))
             {
@@ -300,7 +181,7 @@ namespace DongBoBaoCao.Core.Services
 
         public bool? AddOrUpdateIndicator(OUDataItem oUDataItem)
         {
-            var rs = _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+            var rs = _httpService.Post(_capNhatChiTieuDonViUrl, null, oUDataItem);
 
             if (string.IsNullOrEmpty(rs))
             {

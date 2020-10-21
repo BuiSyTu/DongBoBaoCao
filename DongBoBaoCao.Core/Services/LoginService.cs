@@ -42,7 +42,7 @@ namespace DongBoBaoCao.Core.Services
             }
 
             LoginResult result = JsonConvert.DeserializeObject<LoginResult>(rs);
-            string token = result.data.accessToken;
+            string token = result?.data?.accessToken;
             return token;
         }
     }

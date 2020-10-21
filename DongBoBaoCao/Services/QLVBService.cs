@@ -281,8 +281,6 @@ namespace DongBoBaoCao.Core.Services
                     }
                 }
             }
-
-            //_commonService.AddOrUpdateIndicator();
         }
 
         public void AddChiTieuBaoCao1()
@@ -305,6 +303,7 @@ namespace DongBoBaoCao.Core.Services
                     {
                         var officeCode = officeCodes[k];
 
+                        #region add indicator
                         Random random = new Random();
                         var indicators = new List<Indicator>();
 
@@ -489,6 +488,7 @@ namespace DongBoBaoCao.Core.Services
                             value = DH0102.value * (70 + random.Next(-10, 10)) / 100
                         };
                         indicators.Add(DH010205);
+                        #endregion
 
                         for (var l = 0; l < indicators.Count; l++)
                         {
@@ -733,23 +733,12 @@ namespace DongBoBaoCao.Core.Services
             return total;
         }
 
-        public async Task<int> CreateDanhSachDuLieuAsync()
-        {
-            int total = await _commonService.CreateDanhSachDuLieuAsync(_baseAddress, _bearToken);
-            return total;
-        }
-
         public int CreateDanhSachDuLieuTrongNgay()
         {
             int total = _commonService.CreateDanhSachDuLieuTrongNgay(_baseAddress, _bearToken);
             return total;
         }
 
-        public async Task<int> CreateDanhSachDuLieuTrongNgayAsync()
-        {
-            int total = await _commonService.CreateDanhSachDuLieuTrongNgayAsync(_baseAddress, _bearToken);
-            return total;
-        }
 
         public ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
         {
@@ -757,21 +746,9 @@ namespace DongBoBaoCao.Core.Services
             return result;
         }
 
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuAsync(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
-        {
-            var result = await _commonService.GetDanhSachDuLieuAsync(baseAddress, danhSachDuLieu, bearToken, fromDate, toDate, page, limit);
-            return result;
-        }
-
         public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
         {
             var result = _commonService.GetDanhSachDuLieuTrongNgay(baseAddress, danhSachDuLieuTrongNgay, bearToken, page, limit);
-            return result;
-        }
-
-        public async Task<ICollection<VanBan>> GetDanhSachDuLieuTrongNgayAsync(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
-        {
-            var result = await _commonService.GetDanhSachDuLieuTrongNgayAsync(baseAddress, danhSachDuLieuTrongNgay, bearToken, page, limit);
             return result;
         }
 

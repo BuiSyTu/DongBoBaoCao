@@ -126,6 +126,8 @@ namespace DongBoBaoCao.VinhLong
 
             HocSinhService hocSinhService = new HocSinhService(httpService, Configuration);
             RecurringJob.AddOrUpdate(() => hocSinhService.DeleteAndCreateNew(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => hocSinhService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => hocSinhService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
 
             LopHocService lopHocService = new LopHocService(httpService, Configuration);
             RecurringJob.AddOrUpdate(() => lopHocService.DeleteAndCreateNew(), "0 0 1 * *", TimeZoneInfo.Local);

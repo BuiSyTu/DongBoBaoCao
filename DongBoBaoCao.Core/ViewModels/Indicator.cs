@@ -8,7 +8,7 @@ namespace DongBoBaoCao.Core.ViewModels
     {
         public string Code { get; set; }
         public int value { get; set; }
-        public int error { get; set; }
-        public List<Indicator> Childrens { get; set; }
+        public string fields { get; set; }
+        public string fieldValues { get; set; }
     }
 }

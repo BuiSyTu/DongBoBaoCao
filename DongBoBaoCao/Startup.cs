@@ -8,7 +8,6 @@ using Hangfire;
 using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
 using DongBoBaoCao.Core.Services;
-using Microsoft.AspNetCore.Server.IISIntegration;
 using DongBoBaoCao.Interfaces;
 
 namespace DongBoBaoCao
@@ -26,13 +25,6 @@ namespace DongBoBaoCao
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
-            services.Configure<IISServerOptions>(options =>
-            {
-                options.AutomaticAuthentication = false;
-            });
-
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             // Add services (Dependency injection)
             services.AddScoped<IHttpService, HttpService>();
@@ -95,8 +87,12 @@ namespace DongBoBaoCao
             DuLieuChungService duLieuChungService = new DuLieuChungService(Configuration, httpService);
             RecurringJob.AddOrUpdate(() => duLieuChungService.Truncate(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            PAKNService pAKNService = new PAKNService(Configuration, commonService);
+            PAKNService pAKNService = new PAKNService(Configuration, commonService, httpService);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+
+            DVCService dVCService = new DVCService(Configuration, commonService, httpService);
+            RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
             KNTCService kNTCService = new KNTCService(Configuration, commonService);
             RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
@@ -115,7 +111,7 @@ namespace DongBoBaoCao
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
