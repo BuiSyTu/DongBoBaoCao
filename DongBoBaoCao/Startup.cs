@@ -93,6 +93,7 @@ namespace DongBoBaoCao
 
             DVCService dVCService = new DVCService(Configuration, commonService, httpService);
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             KNTCService kNTCService = new KNTCService(Configuration, commonService);
             RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
