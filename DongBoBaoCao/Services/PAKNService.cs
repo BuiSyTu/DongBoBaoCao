@@ -29,6 +29,11 @@ namespace DongBoBaoCao.Core.Services
             _bearToken = _config.GetSection("PAKN:bearToken").Value;
         }
 
+        public void AddChiTieuBaoCao()
+        {
+            throw new NotImplementedException();
+        }
+
         public int CreateDanhSachDuLieu()
         {
             int total = _commonService.CreateDanhSachDuLieu(_baseAddress, _bearToken);
