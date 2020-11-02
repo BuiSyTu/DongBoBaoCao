@@ -4,85 +4,140 @@ using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
 using DongBoBaoCao.Interfaces;
 using System;
+using DongBoBaoCao.ViewModels;
+using Newtonsoft.Json;
 
 namespace DongBoBaoCao.Core.Services
 {
     public class DVCService : IDVCService
     {
         private readonly IConfiguration _config;
-        private readonly ICommonService _commonService;
         private readonly IHttpService _httpService;
+        private readonly ILoginService _loginService;
+        private readonly IDateTimeService _dateTimeService;
 
-        private readonly string _baseAddress;
-        private readonly string _bearToken;
+        private readonly string _loginToken;
+
+        private readonly string _urlGet;
+        private readonly string _tokenGet;
+
+        private readonly string _urlFilter;
+        private readonly string _urlAdd;
+
+        private readonly string _fromDate;
+        private readonly string _toDate;
+        private readonly int _limit;
 
 
-        public DVCService(IConfiguration config, ICommonService commonService, IHttpService httpService)
+        public DVCService(IConfiguration config, IHttpService httpService, ILoginService loginService, IDateTimeService dateTimeService)
         {
             _config = config;
-            _commonService = commonService;
             _httpService = httpService;
+            _loginService = loginService;
+            _dateTimeService = dateTimeService;
 
-            _baseAddress = _config.GetSection("DVC:baseAddress").Value;
-            _bearToken = _config.GetSection("DVC:bearToken").Value;
+            _loginToken = _loginService.GetToken();
+
+            _urlFilter = _config.GetSection("DVC:filter:address").Value;
+            _urlGet = _config.GetSection("DVC:get:address").Value;
+            _tokenGet = _config.GetSection("DVC:get:bearToken").Value;
+            _urlAdd = _config.GetSection("DVC:add:address").Value;
+
+            _fromDate = _config.GetSection("fromDate").Value;
+            _toDate = _config.GetSection("toDate").Value;
+            _limit = Convert.ToInt32(_config.GetSection("limit").Value);
         }
 
-        public int CreateDanhSachDuLieu()
+        public void CreateDanhSachDuLieu()
         {
-            int total = _commonService.CreateDanhSachDuLieu(_baseAddress, _bearToken);
-            return total;
+            int page = 1;
+
+            while (true)
+            {
+                ICollection<DVCViewModel> dVCs = GetDanhSachDuLieu(page);
+                if (dVCs is null || dVCs.Count <= 0) break;
+
+                _httpService.Post(_urlAdd, null, dVCs);
+                if (dVCs.Count < _limit) break;
+                page++;
+            }
         }
 
-        public int CreateDanhSachDuLieuTrongNgay()
+        public ICollection<DVCViewModel> GetDanhSachDuLieu(int? page)
         {
-            int total = _commonService.CreateDanhSachDuLieuTrongNgay(_baseAddress, _bearToken);
-            return total;
-        }
+            string token = _loginToken ?? _loginService.GetToken();
 
-        public ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
-        {
-            var result = _commonService.GetDanhSachDuLieu(baseAddress, danhSachDuLieu, bearToken, fromDate, toDate, page, limit);
-            return result;
-        }
+            var input = new DanhSachDuLieuInput
+            {
+                token = token,
+                fromDate = _fromDate,
+                toDate = _toDate,
+                page = page ?? 1,
+                limit = _limit
+            };
 
-        public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
-        {
-            var result = _commonService.GetDanhSachDuLieuTrongNgay(baseAddress, danhSachDuLieuTrongNgay, bearToken, page, limit);
-            return result;
+            string rs = _httpService.Post(_urlGet, _tokenGet, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            DVCResult result = JsonConvert.DeserializeObject<DVCResult>(rs);
+            return result.data;
         }
 
         public void AddChiTieuBaoCao()
         {
-            var indicators = new List<Indicator>();
+            var dataYears = new List<int> { 2019, 2020 };
+            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
-            var DH02 = new Indicator
+            var officeCodes = new List<string> { "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40" };
+            var indicatorCodes = new List<string> { "DH02010101", "DH02010102", "DH02010103", "DH02010104", "DH02010105", "DH02010201", "DH02010202", "DH02010203", "DH02010204", "DH02010301", "DH02010302", "DH02010303", "DH02010304", "DH02010305", "DH02010306", "DH02010401", "DH02010402" };
+            foreach (var datayear in dataYears)
             {
-                Code = "DH02"
-            };
+                for (var j = 0; j < months.Count; j++)
+                {
+                    var month = months[j];
+                    var periodId = periodIds[j];
+                    foreach (var officeCode in officeCodes)
+                    {
+                        foreach (var indicatorCode in indicatorCodes)
+                        {
+                            var indicatorInput = new IndicatorInput
+                            {
+                                IndicatorCode = indicatorCode,
+                                Month = month,
+                                OfficeCode = officeCode,
+                                SoftwareCode = "PAKN",
+                                Year = datayear
+                            };
 
-            var DH0201 = new Indicator
-            {
-                Code = "DH0201"
-            };
+                            string filterResult = _httpService.Post(_urlFilter, null, indicatorInput);
 
-            var DH020101 = new Indicator
-            {
-                Code = "DH020101"
-            };
+                            if (string.IsNullOrEmpty(filterResult)) continue;
 
-            var DH020102 = new Indicator
-            {
-                Code = "DH020102",
-                fields = "TrangThaiPhanMem",
-                fieldValues = "02"
-            };
+                            var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
+                            var value = indicatorOutput.Value;
 
-            var DH020103 = new Indicator
-            {
-                Code = "DH020102",
-                fields = "TrangThaiPhanMem",
-                fieldValues = "04"
-            };
+                            var oUDataItem = new OUDataItem
+                            {
+                                dataTypeId = 3, // Thực hiện
+                                dataYear = datayear,
+                                indicatorCode = indicatorCode,
+                                officeCode = officeCode,
+                                periodId = periodId,
+                                value = value,
+                                textValue = value.ToString()
+                            };
+
+                            _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+
+                        }
+                    }
+                }
+            }
         }
 
         public void RandomChiTieuBaoCao()

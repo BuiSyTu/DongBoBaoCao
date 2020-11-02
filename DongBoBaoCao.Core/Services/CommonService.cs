@@ -42,7 +42,25 @@ namespace DongBoBaoCao.Core.Services
             _capNhatChiTieuDonViUrl = _config.GetSection("CapNhatChiTieuDonVi:url").Value;
         }
 
-        public int CreateDanhSachDuLieu(string baseAddress, string bearToken)
+        public int CreateDanhSachDuLieu(string address, string bearToken)
+        {
+            int page = 1;
+            int total = 0;
+
+            while (true)
+            {
+                ICollection<VanBan> listVanBan = GetDanhSachDuLieu(address, bearToken, page);
+                if (listVanBan is null || listVanBan.Count <= 0) break;
+
+                _httpService.Post(_baseAddressDw, _extensionDw, null, listVanBan);
+                total += listVanBan.Count;
+                page++;
+            }
+
+            return total;
+        }
+
+        public int CreateDanhSachDuLieu(string baseAddress, string software, string bearToken)
         {
             int page = 1;
             int total = 0;
@@ -60,14 +78,14 @@ namespace DongBoBaoCao.Core.Services
             return total;
         }
 
-        public int CreateDanhSachDuLieuTrongNgay(string baseAddress, string bearToken)
+        public int CreateDanhSachDuLieuTrongNgay(string address, string bearToken)
         {
             int page = 1;
             int total = 0;
 
             while (true)
             {
-                var listVanBan = GetDanhSachDuLieuTrongNgay(baseAddress, bearToken, page);
+                var listVanBan = GetDanhSachDuLieuTrongNgay(address, bearToken, page);
                 if (listVanBan is null || listVanBan.Count <= 0) break;
 
                 _httpService.Post(_baseAddressDw, _extensionDw, null, listVanBan);

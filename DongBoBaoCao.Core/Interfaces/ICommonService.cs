@@ -6,8 +6,8 @@ namespace DongBoBaoCao.Core.Interfaces
 {
     public interface ICommonService
     {
-        int CreateDanhSachDuLieu(string baseAddress, string bearToken);
-        int CreateDanhSachDuLieuTrongNgay(string baseAddress, string bearToken);
+        int CreateDanhSachDuLieu(string address, string bearToken);
+        int CreateDanhSachDuLieuTrongNgay(string address, string bearToken);
         ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string bearToken, int page);
         ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit);
         ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string bearToken, int page);

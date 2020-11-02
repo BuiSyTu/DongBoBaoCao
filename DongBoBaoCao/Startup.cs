@@ -64,7 +64,9 @@ namespace DongBoBaoCao
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs, IWebHostEnvironment env, ICommonService commonService, IHttpService httpService, IDateTimeService dateTimeService)
+        public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs,
+            IWebHostEnvironment env, ICommonService commonService, IHttpService httpService,
+            IDateTimeService dateTimeService, ILoginService loginService)
         {
             if (env.IsDevelopment())
             {
@@ -89,9 +91,10 @@ namespace DongBoBaoCao
 
             PAKNService pAKNService = new PAKNService(Configuration, commonService, httpService);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            DVCService dVCService = new DVCService(Configuration, commonService, httpService);
+            DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
@@ -109,7 +112,9 @@ namespace DongBoBaoCao
             RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => qLVBService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            CDDHService cDDHService = new CDDHService(Configuration, commonService, httpService);
+            CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService);
+            RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => cDDHService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));

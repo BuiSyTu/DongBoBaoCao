@@ -2,9 +2,10 @@
 using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
-using System.Threading.Tasks;
 using DongBoBaoCao.Interfaces;
 using System;
+using DongBoBaoCao.ViewModels;
+using Newtonsoft.Json;
 
 namespace DongBoBaoCao.Core.Services
 {
@@ -16,6 +17,7 @@ namespace DongBoBaoCao.Core.Services
 
         private readonly string _baseAddress;
         private readonly string _bearToken;
+        private readonly string _urlFilter;
 
 
 
@@ -27,11 +29,60 @@ namespace DongBoBaoCao.Core.Services
 
             _baseAddress = _config.GetSection("PAKN:baseAddress").Value;
             _bearToken = _config.GetSection("PAKN:bearToken").Value;
+            _urlFilter = _config.GetSection("PAKN:filter:address").Value;
         }
 
         public void AddChiTieuBaoCao()
         {
-            throw new NotImplementedException();
+            var dataYears = new List<int> { 2019, 2020 };
+            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+            var officeCodes = new List<string> { "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40" };
+            var indicatorCodes = new List<string> { "DH03010101", "DH03010102", "DH03010103", "DH03010104", "DH03010201", "DH03010202", "DH03010203", "DH03010204", "DH03010205", "DH03010206", "DH03010207", "DH03010208", "DH03010209", "DH03010210", "DH03010301", "DH03010302", "DH03010401", "DH03010402", "DH03010403", "DH030301", "DH030302", "DH030303" };
+            foreach (var datayear in dataYears)
+            {
+                for (var j = 0; j < months.Count; j++)
+                {
+                    var month = months[j];
+                    var periodId = periodIds[j];
+                    foreach (var officeCode in officeCodes)
+                    {
+                        foreach (var indicatorCode in indicatorCodes)
+                        {
+                            var indicatorInput = new IndicatorInput
+                            {
+                                IndicatorCode = indicatorCode,
+                                Month = month,
+                                OfficeCode = officeCode,
+                                SoftwareCode = "PAKN",
+                                Year = datayear
+                            };
+
+                            string filterResult = _httpService.Post(_urlFilter, null, indicatorInput);
+
+                            if (string.IsNullOrEmpty(filterResult)) continue;
+
+                            var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
+                            var value = indicatorOutput.Value;
+
+                            var oUDataItem = new OUDataItem
+                            {
+                                dataTypeId = 3, // Thực hiện
+                                dataYear = datayear,
+                                indicatorCode = indicatorCode,
+                                officeCode = officeCode,
+                                periodId = periodId,
+                                value = value,
+                                textValue = value.ToString()
+                            };
+
+                            _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+
+                        }
+                    }
+                }
+            }
         }
 
         public int CreateDanhSachDuLieu()

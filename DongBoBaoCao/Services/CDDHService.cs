@@ -4,53 +4,134 @@ using System.Collections.Generic;
 using DongBoBaoCao.Core.ViewModels;
 using DongBoBaoCao.Interfaces;
 using System;
+using DongBoBaoCao.ViewModels;
+using Newtonsoft.Json;
 
 namespace DongBoBaoCao.Core.Services
 {
     public class CDDHService : ICDDHService
     {
         private readonly IConfiguration _config;
-        private readonly ICommonService _commonService;
         private readonly IHttpService _httpService;
+        private readonly ILoginService _loginService;
 
-        private readonly string _baseAddress;
-        private readonly string _bearToken;
+        private readonly string _tokenGet;
+        private readonly string _loginToken;
+
+        private readonly string _urlGet;
+        private readonly string _urlFilter;
+        private readonly string _urlAdd;
+
+        private readonly string _fromDate;
+        private readonly string _toDate;
+        private readonly int _limit;
 
 
-        public CDDHService(IConfiguration config, ICommonService commonService, IHttpService httpService)
+        public CDDHService(IConfiguration config, IHttpService httpService, ILoginService loginService)
         {
             _config = config;
-            _commonService = commonService;
             _httpService = httpService;
+            _loginService = loginService;
 
-            _baseAddress = _config.GetSection("CDDH:baseAddress").Value;
-            _bearToken = _config.GetSection("CDDH:bearToken").Value;
+            _fromDate = _config.GetSection("fromDate").Value;
+            _toDate = _config.GetSection("toDate").Value;
+            _limit = Convert.ToInt32(_config.GetSection("limit").Value);
+            _urlGet = _config.GetSection("CDDH:get:address").Value;
+            _loginToken = _loginService.GetToken();
+            _tokenGet = _config.GetSection("CDDH:get:bearToken").Value;
+            _urlFilter = _config.GetSection("CDDH:filter:address").Value;
+            _urlAdd = _config.GetSection("CDDH:add:address").Value;
         }
 
-        public int CreateDanhSachDuLieu()
+        public void AddChiTieuBaoCao()
         {
-            int total = _commonService.CreateDanhSachDuLieu(_baseAddress, _bearToken);
-            return total;
+            var dataYears = new List<int> { 2019, 2020 };
+            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+            var officeCodes = new List<string> { "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40" };
+            var indicatorCodes = new List<string> { "DH04010101", "DH04010102", "DH04010201", "DH04010202", "DH04010203", "DH04010204", "DH04010205", "DH04010206", "DH04010301", "DH04010302", "DH04010303", "DH04010304", "DH040201", "DH040202", "DH040203", "DH040204", "DH040301", "DH040302", "DH040303" };
+            foreach (var datayear in dataYears) { 
+                for (var j = 0; j < months.Count; j++)
+                {
+                    var month = months[j];
+                    var periodId = periodIds[j];
+                    foreach (var officeCode in officeCodes)
+                    {
+                        foreach (var indicatorCode in indicatorCodes)
+                        {
+                            var indicatorInput = new IndicatorInput
+                            {
+                                IndicatorCode = indicatorCode,
+                                Month = month,
+                                OfficeCode = officeCode,
+                                SoftwareCode = "CDDH",
+                                Year = datayear
+                            };
+
+                            string filterResult = _httpService.Post(_urlFilter, null, indicatorInput);
+
+                            if (string.IsNullOrEmpty(filterResult)) continue;
+
+                            var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
+                            var value = indicatorOutput.Value;
+
+                            var oUDataItem = new OUDataItem
+                            {
+                                dataTypeId = 3, // Thực hiện
+                                dataYear = datayear,
+                                indicatorCode = indicatorCode,
+                                officeCode = officeCode,
+                                periodId = periodId,
+                                value = value,
+                                textValue = value.ToString()
+                            };
+
+                            _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+
+                        }
+                    }
+                }
+            }
         }
 
-
-        public int CreateDanhSachDuLieuTrongNgay()
+        public void CreateDanhSachDuLieu()
         {
-            int total = _commonService.CreateDanhSachDuLieuTrongNgay(_baseAddress, _bearToken);
-            return total;
+            int page = 1;
+
+            while (true)
+            {
+                ICollection<CDDHViewModel> cDDHs = GetDanhSachDuLieu(page);
+                if (cDDHs is null || cDDHs.Count <= 0) break;
+
+                _httpService.Post(_urlAdd, null, cDDHs);
+                if (cDDHs.Count < _limit) break;
+                page++;
+            }
         }
 
-
-        public ICollection<VanBan> GetDanhSachDuLieu(string baseAddress, string danhSachDuLieu, string bearToken, string fromDate, string toDate, int page, int limit)
+        public ICollection<CDDHViewModel> GetDanhSachDuLieu(int? page)
         {
-            var result = _commonService.GetDanhSachDuLieu(baseAddress, danhSachDuLieu, bearToken, fromDate, toDate, page, limit);
-            return result;
-        }
+            string token = _loginToken ?? _loginService.GetToken();
 
-        public ICollection<VanBan> GetDanhSachDuLieuTrongNgay(string baseAddress, string danhSachDuLieuTrongNgay, string bearToken, int page, int limit)
-        {
-            var result = _commonService.GetDanhSachDuLieuTrongNgay(baseAddress, danhSachDuLieuTrongNgay, bearToken, page, limit);
-            return result;
+            var input = new DanhSachDuLieuInput
+            {
+                token = token,
+                fromDate = _fromDate,
+                toDate = _toDate,
+                page = page ?? 1,
+                limit = _limit
+            };
+
+            string rs = _httpService.Post(_urlGet, _tokenGet, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            CDDHResult result = JsonConvert.DeserializeObject<CDDHResult>(rs);
+            return result.data;
         }
 
         public void RandomChiTieuBaoCao()
@@ -72,8 +153,6 @@ namespace DongBoBaoCao.Core.Services
                     {
                         Random random = new Random();
                         var indicators = new List<Indicator>();
-
-
 
                         #region indicators
                         var DH04 = new Indicator
