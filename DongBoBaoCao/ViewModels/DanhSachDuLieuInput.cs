@@ -1,4 +1,4 @@
-﻿namespace DongBoBaoCao.Core.ViewModels
+﻿namespace DongBoBaoCao.ViewModels
 {
     public class DanhSachDuLieuInput
     {

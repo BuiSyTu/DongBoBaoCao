@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DongBoBaoCao.Core.ViewModels
+﻿namespace DongBoBaoCao.ViewModels
 {
     public class OUDataItem
     {

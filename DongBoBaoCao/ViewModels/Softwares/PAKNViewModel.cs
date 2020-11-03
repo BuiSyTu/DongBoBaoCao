@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace DongBoBaoCao.Models
+﻿namespace DongBoBaoCao.ViewModels
 {
-    public class CDDH
+    public class PAKNViewModel
     {
         public string ID { get; set; }
         public string PhanMem { get; set; }
@@ -20,16 +18,14 @@ namespace DongBoBaoCao.Models
         public string NguoiXuLyChinh { get; set; }
         public string DonViPhoiHop { get; set; }
         public string NguoiPhoiHop { get; set; }
-        public DateTime? NgayGiao { get; set; }
-        public DateTime? ThoiHan { get; set; }
-        public DateTime? NgayXuLy { get; set; }
+        public string NgayGiao { get; set; }
+        public string ThoiHan { get; set; }
+        public string NgayXuLy { get; set; }
         public string MaTrangThaiChung { get; set; }
         public string MaTrangThaiPhanMem { get; set; }
         public string MaTinhTrang { get; set; }
         public string PhanLoaiTheoSoNguoiKy { get; set; }
         public string PhanLoaiTheoThamQuyen { get; set; }
         public string DiaBan { get; set; }
-        public DateTime? createdAt { get; set; }
-        public DateTime? updatedAt { get; set; }
     }
 }

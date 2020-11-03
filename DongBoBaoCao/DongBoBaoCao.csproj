@@ -22,18 +22,18 @@
     <Compile Remove="Controllers\QLCHController.cs" />
     <Compile Remove="Controllers\QLVBController.cs" />
     <Compile Remove="Controllers\TestController.cs" />
+    <Compile Remove="Services\BCService.cs" />
+    <Compile Remove="Services\KNTCService.cs" />
+    <Compile Remove="Services\QLCBService.cs" />
+    <Compile Remove="Services\QLCHService.cs" />
+    <Compile Remove="Services\QLVBService.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Interfaces\IBCService.cs" />
     <Compile Include="Interfaces\ICDDHService.cs" />
     <Compile Include="Interfaces\IDuLieuChungService.cs" />
     <Compile Include="Interfaces\IDVCService.cs" />
-    <Compile Include="Interfaces\IKNTCService.cs" />
     <Compile Include="Interfaces\IPAKNService.cs" />
-    <Compile Include="Interfaces\IQLCBService.cs" />
-    <Compile Include="Interfaces\IQLCHService.cs" />
-    <Compile Include="Interfaces\IQLVBService.cs" />
   </ItemGroup>
 
   <ItemGroup>

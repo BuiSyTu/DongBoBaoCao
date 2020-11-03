@@ -29,18 +29,17 @@ namespace DongBoBaoCao
             // Add services (Dependency injection)
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IDuLieuChungService, DuLieuChungService>();
             services.AddScoped<IDateTimeService, DateTimeService>();
 
-            services.AddScoped<IBCService, BCService>();
+            //services.AddScoped<IBCService, BCService>();
             services.AddScoped<ICDDHService, CDDHService>();
             services.AddScoped<IDVCService, DVCService>();
-            services.AddScoped<IKNTCService, KNTCService>();
+            //services.AddScoped<IKNTCService, KNTCService>();
             services.AddScoped<IPAKNService, PAKNService>();
-            services.AddScoped<IQLCBService, QLCBService>();
-            services.AddScoped<IQLCHService, QLCHService>();
-            services.AddScoped<IQLVBService, QLVBService>();
+            //services.AddScoped<IQLCBService, QLCBService>();
+            //services.AddScoped<IQLCHService, QLCHService>();
+            //services.AddScoped<IQLVBService, QLVBService>();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -65,7 +64,7 @@ namespace DongBoBaoCao
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IBackgroundJobClient backgroundJobs,
-            IWebHostEnvironment env, ICommonService commonService, IHttpService httpService,
+            IWebHostEnvironment env, IHttpService httpService,
             IDateTimeService dateTimeService, ILoginService loginService)
         {
             if (env.IsDevelopment())
@@ -89,28 +88,29 @@ namespace DongBoBaoCao
             DuLieuChungService duLieuChungService = new DuLieuChungService(Configuration, httpService);
             RecurringJob.AddOrUpdate(() => duLieuChungService.Truncate(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            PAKNService pAKNService = new PAKNService(Configuration, commonService, httpService);
+            PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            KNTCService kNTCService = new KNTCService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            //KNTCService kNTCService = new KNTCService(Configuration);
+            //RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            QLCBService qLCBService = new QLCBService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => qLCBService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            //QLCBService qLCBService = new QLCBService(Configuration);
+            //RecurringJob.AddOrUpdate(() => qLCBService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            QLCHService qLCHService = new QLCHService(Configuration, commonService);
-            RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            //QLCHService qLCHService = new QLCHService(Configuration,);
+            //RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
-            RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => qLVBService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            //QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
+            //RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => qLVBService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService);
             RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);

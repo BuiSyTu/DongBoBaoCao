@@ -2,9 +2,9 @@
 
 namespace DongBoBaoCao.ViewModels
 {
-    public class DVCResult
+    public class APIResult<T>
     {
-        public List<DVCViewModel> data { get; set; }
+        public List<T> data { get; set; }
         public double total { get; set; }
         public ErrorResult error { get; set; }
     }
