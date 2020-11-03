@@ -32,14 +32,9 @@ namespace DongBoBaoCao
             services.AddScoped<IDuLieuChungService, DuLieuChungService>();
             services.AddScoped<IDateTimeService, DateTimeService>();
 
-            //services.AddScoped<IBCService, BCService>();
             services.AddScoped<ICDDHService, CDDHService>();
             services.AddScoped<IDVCService, DVCService>();
-            //services.AddScoped<IKNTCService, KNTCService>();
             services.AddScoped<IPAKNService, PAKNService>();
-            //services.AddScoped<IQLCBService, QLCBService>();
-            //services.AddScoped<IQLCHService, QLCHService>();
-            //services.AddScoped<IQLVBService, QLVBService>();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -83,39 +78,19 @@ namespace DongBoBaoCao
             app.UseHangfireDashboard();
 
             // Hangfire jobs
-            //RecurringJob.AddOrUpdate(() => Console.WriteLine("abc"), "*/3 6-20 * * 1-7", TimeZoneInfo.Local); // Mỗi 3 phút từ 6 - 22h, từ thứ 2 đến CN
-
-            DuLieuChungService duLieuChungService = new DuLieuChungService(Configuration, httpService);
-            RecurringJob.AddOrUpdate(() => duLieuChungService.Truncate(), "0 0 * * *", TimeZoneInfo.Local);
-
             PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
 
             DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
-
-            //KNTCService kNTCService = new KNTCService(Configuration);
-            //RecurringJob.AddOrUpdate(() => kNTCService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            //QLCBService qLCBService = new QLCBService(Configuration);
-            //RecurringJob.AddOrUpdate(() => qLCBService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            //QLCHService qLCHService = new QLCHService(Configuration,);
-            //RecurringJob.AddOrUpdate(() => qLCHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
-
-            //QLVBService qLVBService = new QLVBService(Configuration, commonService, dateTimeService, httpService);
-            //RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => qLVBService.AddChiTieuBaoCao1(), "0 0 1 * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => qLVBService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
 
             CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService);
             RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => cDDHService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => cDDHService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
 
             backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
 
