@@ -8,6 +8,7 @@ namespace DongBoBaoCao.Interfaces
         void AddChiTieuBaoCao();
         void CreateDanhSachDuLieu();
         ICollection<DVCViewModel> GetDanhSachDuLieu(int? page);
+        ICollection<DVCViewModel> GetDanhSachDuLieu(int month, int year, int? page);
         void RandomChiTieuBaoCao();
     }
 }

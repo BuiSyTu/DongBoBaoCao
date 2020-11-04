@@ -24,7 +24,11 @@ namespace DongBoBaoCao.Core.Services
         private readonly string _urlAdd;
 
         private readonly string _fromDate;
+        private readonly int _fromMonth;
+        private readonly int _fromYear;
         private readonly string _toDate;
+        private readonly int _toMonth;
+        private readonly int _toYear;
         private readonly int _limit;
 
 
@@ -42,23 +46,32 @@ namespace DongBoBaoCao.Core.Services
             _tokenGet = _config.GetSection("DVC:get:bearToken").Value;
             _urlAdd = _config.GetSection("DVC:add:address").Value;
 
-            _fromDate = _config.GetSection("fromDate").Value;
-            _toDate = _config.GetSection("toDate").Value;
+            _fromDate = _config.GetSection("fromDate:date").Value;
+            _fromMonth = Convert.ToInt32(_config.GetSection("fromDate:month").Value);
+            _fromYear = Convert.ToInt32(_config.GetSection("fromDate:year").Value);
+            _toDate = _config.GetSection("toDate:date").Value;
+            _toMonth = Convert.ToInt32(_config.GetSection("toDate:month").Value);
+            _toYear = Convert.ToInt32(_config.GetSection("toDate:year").Value);
             _limit = Convert.ToInt32(_config.GetSection("limit").Value);
         }
 
         public void CreateDanhSachDuLieu()
         {
-            int page = 1;
-
-            while (true)
+            for (var year = _fromYear; year <= _toYear; year++)
             {
-                ICollection<DVCViewModel> dVCs = GetDanhSachDuLieu(page);
-                if (dVCs is null || dVCs.Count <= 0) break;
+                for (var month = _fromMonth; month <= _toMonth; month++)
+                {
+                    int page = 1;
+                    while (true)
+                    {
+                        ICollection<DVCViewModel> dVCs = GetDanhSachDuLieu(month, year, page);
+                        if (dVCs is null || dVCs.Count <= 0) break;
 
-                _httpService.Post(_urlAdd, null, dVCs);
-                if (dVCs.Count < _limit) break;
-                page++;
+                        _httpService.Post(_urlAdd, null, dVCs);
+                        if (dVCs.Count < _limit) break;
+                        page++;
+                    }
+                }
             }
         }
 
@@ -71,6 +84,30 @@ namespace DongBoBaoCao.Core.Services
                 token = token,
                 fromDate = _fromDate,
                 toDate = _toDate,
+                page = page ?? 1,
+                limit = _limit
+            };
+
+            string rs = _httpService.Post(_urlGet, _tokenGet, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            var result = JsonConvert.DeserializeObject<APIResult<DVCViewModel>>(rs);
+            return result.data;
+        }
+
+        public ICollection<DVCViewModel> GetDanhSachDuLieu(int month, int year, int? page)
+        {
+            string token = _loginToken ?? _loginService.GetToken();
+
+            var input = new DanhSachDuLieuInput
+            {
+                token = token,
+                fromDate = _dateTimeService.GetStartDateOfMonth(month, year, "dd/MM/yyyy"),
+                toDate = _dateTimeService.GetLastDateOfMonth(month, year, "dd/MM/yyyy"),
                 page = page ?? 1,
                 limit = _limit
             };
@@ -371,7 +408,32 @@ namespace DongBoBaoCao.Core.Services
                 "4a6134bb-5c90-4b79-8e4d-9b3d78a80b72",
                 "4E7A5828-909B-A57E-A3FF-5B0C767F2B3C",
                 "4ef240b0-9e71-4782-b6f2-3768c53f60b8"};
-            var indicatorCodes = new List<string> { "DH02010101", "DH02010102", "DH02010103", "DH02010104", "DH02010105", "DH02010201", "DH02010202", "DH02010203", "DH02010204", "DH02010301", "DH02010302", "DH02010303", "DH02010304", "DH02010305", "DH02010306", "DH02010401", "DH02010402" };
+            var indicatorCodes = new List<string> {
+                "DH02010101",
+                "DH02010102",
+                "DH02010103",
+                "DH02010104",
+                "DH02010105",
+                "DH02010201",
+                "DH02010202",
+                "DH02010203",
+                "DH02010204",
+                "DH02010301",
+                "DH02010302",
+                "DH02010303",
+                "DH02010304",
+                "DH02010305",
+                "DH02010306",
+                "DH020104",
+                "DH02010401",
+                "DH02010402",
+                "DH020105",
+                "DH02010501",
+                "DH02010502",
+                "DH020201",
+                "DH020202",
+                "DH020203"
+            };
             foreach (var datayear in dataYears)
             {
                 for (var j = 0; j < months.Count; j++)
@@ -626,7 +688,7 @@ namespace DongBoBaoCao.Core.Services
                         {
                             var indicator = indicators[l];
 
-                            var rs = _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, new OUDataItem
+                            _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, new OUDataItem
                             {
                                 dataTypeId = 3, // Thực hiện
                                 dataYear = datayear,

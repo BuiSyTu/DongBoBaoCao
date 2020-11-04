@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Compile Include="Interfaces\ICDDHService.cs" />
-    <Compile Include="Interfaces\IDuLieuChungService.cs" />
     <Compile Include="Interfaces\IDVCService.cs" />
     <Compile Include="Interfaces\IPAKNService.cs" />
   </ItemGroup>

@@ -13,6 +13,7 @@ namespace DongBoBaoCao.Core.Services
         private readonly IConfiguration _config;
         private readonly IHttpService _httpService;
         private readonly ILoginService _loginService;
+        private readonly IDateTimeService _dateTimeService;
 
         private readonly string _tokenGet;
         private readonly string _loginToken;
@@ -20,26 +21,38 @@ namespace DongBoBaoCao.Core.Services
         private readonly string _urlGet;
         private readonly string _urlFilter;
         private readonly string _urlAdd;
+        private readonly string _urlUpdate;
 
         private readonly string _fromDate;
+        private readonly int _fromMonth;
+        private readonly int _fromYear;
         private readonly string _toDate;
+        private readonly int _toMonth;
+        private readonly int _toYear;
         private readonly int _limit;
 
 
-        public CDDHService(IConfiguration config, IHttpService httpService, ILoginService loginService)
+        public CDDHService(IConfiguration config, IHttpService httpService, ILoginService loginService, IDateTimeService dateTimeService)
         {
             _config = config;
             _httpService = httpService;
             _loginService = loginService;
+            _dateTimeService = dateTimeService;
 
-            _fromDate = _config.GetSection("fromDate").Value;
-            _toDate = _config.GetSection("toDate").Value;
-            _limit = Convert.ToInt32(_config.GetSection("limit").Value);
             _urlGet = _config.GetSection("CDDH:get:address").Value;
             _loginToken = _loginService.GetToken();
             _tokenGet = _config.GetSection("CDDH:get:bearToken").Value;
             _urlFilter = _config.GetSection("CDDH:filter:address").Value;
             _urlAdd = _config.GetSection("CDDH:add:address").Value;
+            _urlUpdate = _config.GetSection("CapNhatChiTieuDonVi:address").Value;
+
+            _fromDate = _config.GetSection("fromDate:date").Value;
+            _fromMonth = Convert.ToInt32(_config.GetSection("fromDate:month").Value);
+            _fromYear = Convert.ToInt32(_config.GetSection("fromDate:year").Value);
+            _toDate = _config.GetSection("toDate:date").Value;
+            _toMonth = Convert.ToInt32(_config.GetSection("toDate:month").Value);
+            _toYear = Convert.ToInt32(_config.GetSection("toDate:year").Value);
+            _limit = Convert.ToInt32(_config.GetSection("limit").Value);
         }
 
         public void AddChiTieuBaoCao()
@@ -48,7 +61,8 @@ namespace DongBoBaoCao.Core.Services
             var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
-            var officeCodes = new List<string> {  "000-00-00-H40",
+            var officeCodes = new List<string> {
+                "000-00-00-H40",
                 "000-00-18-H40",
                 "000-00-05-H40",
                 "000-00-12-H40",
@@ -384,7 +398,7 @@ namespace DongBoBaoCao.Core.Services
                                 textValue = value.ToString()
                             };
 
-                            _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, oUDataItem);
+                            _httpService.Post(_urlUpdate, null, oUDataItem);
 
                         }
                     }
@@ -394,16 +408,22 @@ namespace DongBoBaoCao.Core.Services
 
         public void CreateDanhSachDuLieu()
         {
-            int page = 1;
-
-            while (true)
+            for (var year = _fromYear; year <= _toYear; year++)
             {
-                var cDDHs = GetDanhSachDuLieu(page);
-                if (cDDHs is null || cDDHs.Count <= 0) break;
+                for (var month = _fromMonth; month <= _toMonth; month++)
+                {
+                    int page = 1;
 
-                _httpService.Post(_urlAdd, null, cDDHs);
-                if (cDDHs.Count < _limit) break;
-                page++;
+                    while (true)
+                    {
+                        var cDDHs = GetDanhSachDuLieu(month, year, page);
+                        if (cDDHs is null || cDDHs.Count <= 0) break;
+
+                        _httpService.Post(_urlAdd, null, cDDHs);
+                        if (cDDHs.Count < _limit) break;
+                        page++;
+                    }
+                }
             }
         }
 
@@ -416,6 +436,30 @@ namespace DongBoBaoCao.Core.Services
                 token = token,
                 fromDate = _fromDate,
                 toDate = _toDate,
+                page = page ?? 1,
+                limit = _limit
+            };
+
+            string rs = _httpService.Post(_urlGet, _tokenGet, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            var result = JsonConvert.DeserializeObject<APIResult<CDDHViewModel>>(rs);
+            return result.data;
+        }
+
+        public ICollection<CDDHViewModel> GetDanhSachDuLieu(int month, int year, int? page)
+        {
+            string token = _loginToken ?? _loginService.GetToken();
+
+            var input = new DanhSachDuLieuInput
+            {
+                token = token,
+                fromDate = _dateTimeService.GetStartDateOfMonth(month, year, "dd/MM/yyyy"),
+                toDate = _dateTimeService.GetLastDateOfMonth(month, year, "dd/MM/yyyy"),
                 page = page ?? 1,
                 limit = _limit
             };
@@ -612,7 +656,7 @@ namespace DongBoBaoCao.Core.Services
                         {
                             var indicator = indicators[l];
 
-                            var rs = _httpService.Post("https://baocao.namdinh.gov.vn/_vti_bin/td.bc.dw/dwservice.svc/CapNhatChiTieuDonVi", null, new OUDataItem
+                            _httpService.Post(_urlUpdate, null, new OUDataItem
                             {
                                 dataTypeId = 3, // Thực hiện
                                 dataYear = datayear,

@@ -29,7 +29,6 @@ namespace DongBoBaoCao
             // Add services (Dependency injection)
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<IDuLieuChungService, DuLieuChungService>();
             services.AddScoped<IDateTimeService, DateTimeService>();
 
             services.AddScoped<ICDDHService, CDDHService>();
@@ -78,7 +77,7 @@ namespace DongBoBaoCao
             app.UseHangfireDashboard();
 
             // Hangfire jobs
-            PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService);
+            PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
             //RecurringJob.AddOrUpdate(() => pAKNService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
@@ -87,7 +86,7 @@ namespace DongBoBaoCao
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
 
-            CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService);
+            CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
             //RecurringJob.AddOrUpdate(() => cDDHService.RandomChiTieuBaoCao(), "0 0 * * *", TimeZoneInfo.Local);
