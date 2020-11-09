@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao", "DongBoBaoCa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DongBoBaoCao.Core", "DongBoBaoCao.Core\DongBoBaoCao.Core.csproj", "{1C700C41-2024-4783-B59D-9C10DB75F704}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DongBoBaoCao.Api", "DongBoBaoCao.Api\DongBoBaoCao.Api.csproj", "{B91DFB21-D3FB-4D97-B5B0-216EC402BACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1C700C41-2024-4783-B59D-9C10DB75F704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C700C41-2024-4783-B59D-9C10DB75F704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C700C41-2024-4783-B59D-9C10DB75F704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B91DFB21-D3FB-4D97-B5B0-216EC402BACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B91DFB21-D3FB-4D97-B5B0-216EC402BACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B91DFB21-D3FB-4D97-B5B0-216EC402BACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B91DFB21-D3FB-4D97-B5B0-216EC402BACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

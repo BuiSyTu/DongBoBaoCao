@@ -376,7 +376,6 @@ namespace DongBoBaoCao.Core.Services
                                 IndicatorCode = indicatorCode,
                                 Month = month,
                                 OfficeCode = officeCode,
-                                SoftwareCode = "CDDH",
                                 Year = datayear
                             };
 
@@ -386,6 +385,8 @@ namespace DongBoBaoCao.Core.Services
 
                             var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
                             int value = indicatorOutput.Value;
+
+                            if (value == 0) continue;
 
                             var oUDataItem = new OUDataItem
                             {

@@ -382,7 +382,6 @@ namespace DongBoBaoCao.Core.Services
                                 IndicatorCode = indicatorCode,
                                 Month = month,
                                 OfficeCode = officeCode,
-                                SoftwareCode = "PAKN",
                                 Year = datayear
                             };
 
@@ -392,6 +391,8 @@ namespace DongBoBaoCao.Core.Services
 
                             var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
                             var value = indicatorOutput.Value;
+
+                            if (value == 0) continue;
 
                             var oUDataItem = new OUDataItem
                             {

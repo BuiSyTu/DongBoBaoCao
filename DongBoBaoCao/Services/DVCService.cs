@@ -5,6 +5,7 @@ using DongBoBaoCao.Interfaces;
 using System;
 using DongBoBaoCao.ViewModels;
 using Newtonsoft.Json;
+using System.Threading;
 
 namespace DongBoBaoCao.Core.Services
 {
@@ -129,7 +130,7 @@ namespace DongBoBaoCao.Core.Services
             var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
-            var officeCodes = new List<string> {                
+            var officeCodes = new List<string> {
                 "000-00-00-H40",
                 "000-00-18-H40",
                 "000-00-05-H40",
@@ -447,7 +448,6 @@ namespace DongBoBaoCao.Core.Services
                                 IndicatorCode = indicatorCode,
                                 Month = month,
                                 OfficeCode = officeCode,
-                                SoftwareCode = "DVC",
                                 Year = datayear
                             };
 
@@ -457,6 +457,8 @@ namespace DongBoBaoCao.Core.Services
 
                             var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
                             int value = indicatorOutput.Value;
+
+                            if (value == 0) continue;
 
                             var oUDataItem = new OUDataItem
                             {
