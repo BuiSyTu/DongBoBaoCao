@@ -27,7 +27,7 @@ namespace DongBoBaoCao.Services
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
             var officeCodes = new List<string> {
-                "000-00-00-H40"
+                "000-00-12-H40"
             };
             var indicatorCodes = new List<string> {
                 "DH070201",
@@ -64,8 +64,6 @@ namespace DongBoBaoCao.Services
 
                             var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
                             var value = indicatorOutput.Value;
-
-                            if (value == 0) continue;
 
                             var oUDataItem = new OUDataItem
                             {
