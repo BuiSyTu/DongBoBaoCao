@@ -7,9 +7,9 @@ using Microsoft.Extensions.Hosting;
 using Hangfire;
 using Hangfire.SqlServer;
 using DongBoBaoCao.Core.Interfaces;
-using DongBoBaoCao.Interfaces;
 using DongBoBaoCao.Services;
 using DongBoBaoCao.Core.Services;
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace DongBoBaoCao
 {
@@ -32,9 +32,9 @@ namespace DongBoBaoCao
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IDateTimeService, DateTimeService>();
 
-            services.AddScoped<ICDDHService, CDDHService>();
-            services.AddScoped<IDVCService, DVCService>();
-            services.AddScoped<IPAKNService, PAKNService>();
+            services.AddScoped<CDDHService>();
+            services.AddScoped<DVCService>();
+            services.AddScoped<PAKNService>();
 
             // Add Hangfire services.
             services.AddHangfire(configuration => configuration
@@ -52,6 +52,9 @@ namespace DongBoBaoCao
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
+
+            // Window authen
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
             // Add framework services.
             services.AddMvc();
@@ -78,26 +81,28 @@ namespace DongBoBaoCao
             app.UseHangfireDashboard();
 
             // Hangfire jobs
-            PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
-            RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
+            //PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
+            //RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            //DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
-            //RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
+            DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
+            for(var month = 1; month <= 10; month++)
+            {
+                dVCService.CreateDanhSachDuLieu(month, 2020);
+            }
+            //RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
-            RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "30 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "30 1 * * *", TimeZoneInfo.Local);
+            //CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
+            //RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
+            //RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            LogInfoService logInfoService = new LogInfoService(Configuration, httpService);
-            RecurringJob.AddOrUpdate(() => logInfoService.AddChiTieuBaoCao(), "30 2 * * *", TimeZoneInfo.Local);
-
-            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+            //LogInfoService logInfoService = new LogInfoService(Configuration, httpService);
+            //RecurringJob.AddOrUpdate(() => logInfoService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

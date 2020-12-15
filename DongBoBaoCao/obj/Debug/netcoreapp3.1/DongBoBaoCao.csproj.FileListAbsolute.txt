@@ -141,3 +141,4 @@ E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao\obj\Debug\netcoreapp3.1\staticwebass
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao\obj\Debug\netcoreapp3.1\DongBoBaoCao.dll
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao\obj\Debug\netcoreapp3.1\DongBoBaoCao.pdb
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao\obj\Debug\netcoreapp3.1\DongBoBaoCao.genruntimeconfig.cache
+E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao\bin\Debug\netcoreapp3.1\web.config

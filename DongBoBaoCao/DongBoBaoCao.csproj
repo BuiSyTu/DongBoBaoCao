@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Interfaces\**" />
-    <Content Remove="Interfaces\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <None Remove="Interfaces\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\BCController.cs" />
     <Compile Remove="Controllers\CDDHController.cs" />
     <Compile Remove="Controllers\DVCController.cs" />
@@ -27,12 +20,6 @@
     <Compile Remove="Services\QLCBService.cs" />
     <Compile Remove="Services\QLCHService.cs" />
     <Compile Remove="Services\QLVBService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Interfaces\ICDDHService.cs" />
-    <Compile Include="Interfaces\IDVCService.cs" />
-    <Compile Include="Interfaces\IPAKNService.cs" />
   </ItemGroup>
 
   <ItemGroup>

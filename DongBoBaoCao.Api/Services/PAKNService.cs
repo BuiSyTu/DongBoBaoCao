@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
+using DongBoBaoCao.Interfaces;
 using System;
 using DongBoBaoCao.ViewModels;
 using Newtonsoft.Json;
 
 namespace DongBoBaoCao.Services
 {
-    public class PAKNService
+    public class PAKNService : IPAKNService
     {
         private readonly IConfiguration _config;
         private readonly IHttpService _httpService;

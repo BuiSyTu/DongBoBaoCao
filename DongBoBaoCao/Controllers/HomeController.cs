@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using DongBoBaoCao.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DongBoBaoCao.Controllers
 {
