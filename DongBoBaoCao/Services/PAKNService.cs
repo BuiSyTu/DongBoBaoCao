@@ -482,5 +482,9 @@ namespace DongBoBaoCao.Services
                 }
             }
         }
+        public void Truncate()
+        {
+            _httpService.Get("https://baocao.namdinh.gov.vn/_vti_bin/td.bcdh/bcdhservice.svc/PAKN/Truncate", _tokenGet);
+        }
     }
 }

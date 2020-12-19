@@ -79,14 +79,16 @@ namespace DongBoBaoCao
 
             // Hangfire jobs
             PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
+            RecurringJob.AddOrUpdate(() => pAKNService.Truncate(), "0 23 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "10 0 * * *", TimeZoneInfo.Local);
 
             DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
             RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieuByDay(), "40 0 * * *", TimeZoneInfo.Local);
-            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 1 * * *", TimeZoneInfo.Local);
 
             CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
+            RecurringJob.AddOrUpdate(() => cDDHService.Truncate(), "15 23 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "5 0 * * *", TimeZoneInfo.Local);
             RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "20 0 * * *", TimeZoneInfo.Local);
 
