@@ -53,9 +53,6 @@ namespace DongBoBaoCao
             // Add the processing server as IHostedService
             services.AddHangfireServer();
 
-            // Window authen
-            services.AddAuthentication(IISDefaults.AuthenticationScheme);
-
             // Add framework services.
             services.AddMvc();
         }
@@ -81,24 +78,20 @@ namespace DongBoBaoCao
             app.UseHangfireDashboard();
 
             // Hangfire jobs
-            //PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
-            //RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            PAKNService pAKNService = new PAKNService(Configuration, httpService, loginService, dateTimeService);
+            RecurringJob.AddOrUpdate(() => pAKNService.CreateDanhSachDuLieu(), "0 0 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => pAKNService.AddChiTieuBaoCao(), "10 0 * * *", TimeZoneInfo.Local);
 
             DVCService dVCService = new DVCService(Configuration, httpService, loginService, dateTimeService);
-            for(var month = 1; month <= 10; month++)
-            {
-                dVCService.CreateDanhSachDuLieu(month, 2020);
-            }
-            //RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => dVCService.RandomChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.CreateDanhSachDuLieuByDay(), "40 0 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => dVCService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
 
-            //CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
-            //RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "0 0 1 * *", TimeZoneInfo.Local);
-            //RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            CDDHService cDDHService = new CDDHService(Configuration, httpService, loginService, dateTimeService);
+            RecurringJob.AddOrUpdate(() => cDDHService.CreateDanhSachDuLieu(), "5 0 * * *", TimeZoneInfo.Local);
+            RecurringJob.AddOrUpdate(() => cDDHService.AddChiTieuBaoCao(), "20 0 * * *", TimeZoneInfo.Local);
 
-            //LogInfoService logInfoService = new LogInfoService(Configuration, httpService);
-            //RecurringJob.AddOrUpdate(() => logInfoService.AddChiTieuBaoCao(), "0 0 1 * *", TimeZoneInfo.Local);
+            LogInfoService logInfoService = new LogInfoService(Configuration, httpService);
+            RecurringJob.AddOrUpdate(() => logInfoService.AddChiTieuBaoCao(), "30 0 * * *", TimeZoneInfo.Local);
 
             app.UseRouting();
 

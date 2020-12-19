@@ -59,10 +59,11 @@ namespace DongBoBaoCao.Services
             //int year = 2020;
             int lastDayOfMonth = DateTime.DaysInMonth(year, month);
 
-            for (var day = 1; day <= lastDayOfMonth; day++)
+            for (var day = 15; day <= 16; day++)
             {
                 Console.WriteLine($"{day}/{month}/{year}");
 
+                //Lấy count
                 var rs =  _httpService.Post("https://api.namdinh.gov.vn/UBNDDVC/DanhSachDuLieuCount", "76faf6a5-b128-3a1e-b56b-4dc290239587", new { 
                     fromDate = $"{day}/{month}/{year}",
                     toDate = $"{day}/{month}/{year}"
@@ -109,6 +110,71 @@ namespace DongBoBaoCao.Services
                 }
                 Console.WriteLine($"success: {success}, fail1: {fail1}, fail2: {fail2}");
             }
+
+            return $"success: {success}, fail1: {fail1}, fail2: {fail2}";
+        }
+
+        public string CreateDanhSachDuLieuByDay()
+        {
+            int success = 0;
+            int fail1 = 0;
+            int fail2 = 0;
+            DateTime yesterday = DateTime.Today.AddDays(-1);
+            int day = yesterday.Day;
+            int month = yesterday.Month;
+            int year = yesterday.Year;
+            //int month = 10;
+            //int year = 2020;
+
+            Console.WriteLine($"{day}/{month}/{year}");
+
+            //Lấy count
+            var rs = _httpService.Post("https://api.namdinh.gov.vn/UBNDDVC/DanhSachDuLieuCount", "76faf6a5-b128-3a1e-b56b-4dc290239587", new
+            {
+                fromDate = $"{day}/{month}/{year}",
+                toDate = $"{day}/{month}/{year}"
+            });
+
+            var countResult = JsonConvert.DeserializeObject<APIResult<DVCViewModel>>(rs);
+            int total = (int)countResult.total;
+            int totalPage = total % _limit == 0 ? total / _limit : total / _limit + 1;
+            int page = 1;
+
+            Console.WriteLine($"Total: {total}, Total page: {totalPage}");
+
+            while (page <= totalPage)
+            {
+                Console.WriteLine($"page: {page}");
+                try
+                {
+                    ICollection<DVCViewModel> dVCs = GetDanhSachDuLieuByDay(day, month, year, page);
+                    if (dVCs is null)
+                    {
+                        fail1++;
+                        Console.WriteLine("Fail1");
+                    };
+
+                    var rs1 = _httpService.Post(_urlAdd, null, dVCs);
+                    if (string.IsNullOrEmpty(rs))
+                    {
+                        fail2++;
+                        Console.WriteLine("Fail2");
+                    }
+                    else
+                    {
+                        success++;
+                        Console.WriteLine("Success");
+                    };
+
+                    if (dVCs.Count < _limit) break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+                page++;
+            }
+            Console.WriteLine($"success: {success}, fail1: {fail1}, fail2: {fail2}");
 
             return $"success: {success}, fail1: {fail1}, fail2: {fail2}";
         }
@@ -161,39 +227,17 @@ namespace DongBoBaoCao.Services
             return result.data;
         }
 
-        public double CountDanhSachDuLieu(int month, int year)
-        {
-            string token = _loginToken ?? _loginService.GetToken();
-
-            var input = new DanhSachDuLieuInput
-            {
-                token = token,
-                fromDate = _dateTimeService.GetStartDateOfMonth(month, year, "dd/MM/yyyy"),
-                toDate = _dateTimeService.GetLastDateOfMonth(month, year, "dd/MM/yyyy")
-            };
-
-            string rs = _httpService.Post(_urlGet, _tokenGet, input);
-
-            if (string.IsNullOrEmpty(rs))
-            {
-                return 0;
-            }
-
-            var result = JsonConvert.DeserializeObject<APIResult<DVCViewModel>>(rs);
-            return result.total;
-        }
-
         public string AddChiTieuBaoCao()
         {
             var success = 0;
             var fail1 = 0;
             var fail2 = 0;
-            var dataYears = new List<int> { 2020 };
-            var months = new List<int> { 11, 12 };
-            var periodIds = new List<int> { 11, 12 };
+            var dataYears = new List<int> { 2018, 2019, 2020 };
+            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
             var officeCodes = new List<string> {
-                // "000-00-00-H40",
+                 "000-00-00-H40",
                   "000-00-24-H40", "000-00-12-H40", "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40"};
             var indicatorCodes = new List<string> {
                 "DH02010101",
@@ -226,10 +270,13 @@ namespace DongBoBaoCao.Services
                 {
                     var month = months[j];
                     var periodId = periodIds[j];
+                    Console.WriteLine($"Month: {month}");
                     foreach (var officeCode in officeCodes)
                     {
+                        Console.WriteLine($"OfficeCode: {officeCode}");
                         foreach (var indicatorCode in indicatorCodes)
                         {
+                            Console.WriteLine($"IndicatorCode: {indicatorCode}");
                             var indicatorInput = new IndicatorInput
                             {
                                 IndicatorCode = indicatorCode,
@@ -242,6 +289,7 @@ namespace DongBoBaoCao.Services
 
                             if (string.IsNullOrEmpty(filterResult)) {
                                 fail1++;
+                                Console.WriteLine($"{indicatorCode} Fail1");
                                 continue;
                             }
 
@@ -263,9 +311,11 @@ namespace DongBoBaoCao.Services
                             if (string.IsNullOrEmpty(addResult))
                             {
                                 fail2++;
+                                Console.WriteLine(fail2);
                                 continue;
                             }
                             success++;
+                            Console.WriteLine("Success");
                         }
                     }
                 }
