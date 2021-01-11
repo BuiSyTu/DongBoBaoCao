@@ -232,7 +232,7 @@ namespace DongBoBaoCao.Services
             var success = 0;
             var fail1 = 0;
             var fail2 = 0;
-            var dataYears = new List<int> { 2018, 2019, 2020 };
+            var dataYears = new List<int> { 2018, 2019, 2020, 2021 };
             var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 

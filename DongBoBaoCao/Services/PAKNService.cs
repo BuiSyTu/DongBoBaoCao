@@ -58,13 +58,13 @@ namespace DongBoBaoCao.Services
 
         public void AddChiTieuBaoCao()
         {
-            var dataYears = new List<int> {  2020 };
-            var months = new List<int> { 10, 11 };
-            var periodIds = new List<int> { 10, 11 };
+            var dataYears = new List<int> {  2020, 2021 };
+            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
             var officeCodes = new List<string> {
-                 "000-00-00-H40",
-                "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40", "000-30-24-H40", "000-24-24-H40", "000-34-24-H40"
+                "000-00-00-H40",
+                "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40"
             };
             var indicatorCodes = new List<string> {
                 "DH03010101",
@@ -133,9 +133,9 @@ namespace DongBoBaoCao.Services
 
         public void CreateDanhSachDuLieu()
         {
-            for (var year = _fromYear; year <= _toYear; year++)
+            for (var year = 2020; year <= 2020; year++)
             {
-                for (var month = _fromMonth; month <= _toMonth; month++)
+                for (var month = 10; month <= 12; month++)
                 {
                     int page = 1;
 
