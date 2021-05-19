@@ -9,5 +9,6 @@ namespace DongBoBaoCao.VinhLong.Interfaces
         int Create();
         bool? Delete();
         int DeleteAndCreateNew();
+        void ThemChiTieuBaoCao();
     }
 }

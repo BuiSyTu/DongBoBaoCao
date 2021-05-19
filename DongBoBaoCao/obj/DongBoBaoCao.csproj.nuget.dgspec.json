@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj": {}
+    "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj": {}
   },
   "projects": {
-    "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
+    "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+        "projectUniqueName": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
         "projectName": "DongBoBaoCao.Core",
-        "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
-        "packagesPath": "C:\\Users\\tubs\\.nuget\\packages\\",
-        "outputPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\obj\\",
+        "projectPath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+        "packagesPath": "C:\\Users\\hieupm\\.nuget\\packages\\",
+        "outputPath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\tubs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hieupm\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -65,24 +65,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj": {
+    "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
+        "projectUniqueName": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
         "projectName": "DongBoBaoCao",
-        "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
-        "packagesPath": "C:\\Users\\tubs\\.nuget\\packages\\",
-        "outputPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao\\obj\\",
+        "projectPath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao\\DongBoBaoCao.csproj",
+        "packagesPath": "C:\\Users\\hieupm\\.nuget\\packages\\",
+        "outputPath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\tubs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\hieupm\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,8 +95,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
-                "projectPath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj"
+              "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj": {
+                "projectPath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj"
               }
             }
           }
@@ -157,7 +157,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

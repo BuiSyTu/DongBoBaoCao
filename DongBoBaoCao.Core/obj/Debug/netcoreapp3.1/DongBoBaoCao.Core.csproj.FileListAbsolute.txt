@@ -20,3 +20,14 @@ E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoB
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.dll
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.pdb
 E:\Sources\Dotnet\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csprojAssemblyReference.cache
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\appsettings.Development.json
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\appsettings.json
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.deps.json
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.dll
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\bin\Debug\netcoreapp3.1\DongBoBaoCao.Core.pdb
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csprojAssemblyReference.cache
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.AssemblyInfoInputs.cache
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.AssemblyInfo.cs
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.csproj.CoreCompileInputs.cache
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.dll
+E:\Tài liệu SP2013\DongBoBaoCaoNamDinh\DongBoBaoCao\DongBoBaoCao.Core\obj\Debug\netcoreapp3.1\DongBoBaoCao.Core.pdb

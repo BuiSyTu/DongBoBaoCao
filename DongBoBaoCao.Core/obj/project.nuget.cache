@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vinyxw/L8mRXJjKoNbxrTJ2BauNY6UX08/72pUTsNoV8FKUFVNjbhGAViEMNj3mzdwb17TgU39gd4onpQDBIKg==",
+  "dgSpecHash": "dw+0TZ9KHRvJLy96SpGCj7TzWGPl/1bCd3/5J4zFDBIAKzBzJa41pKOhjsNThFHCatm5qB91yoKMc78UvsW42g==",
   "success": true,
-  "projectFilePath": "E:\\Sources\\Dotnet\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
+  "projectFilePath": "E:\\Tài liệu SP2013\\DongBoBaoCaoNamDinh\\DongBoBaoCao\\DongBoBaoCao.Core\\DongBoBaoCao.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
-    "C:\\Users\\tubs\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.8\\microsoft.extensions.primitives.3.1.8.nupkg.sha512",
-    "C:\\Users\\tubs\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\hieupm\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.8\\microsoft.extensions.configuration.abstractions.3.1.8.nupkg.sha512",
+    "C:\\Users\\hieupm\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.8\\microsoft.extensions.primitives.3.1.8.nupkg.sha512",
+    "C:\\Users\\hieupm\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

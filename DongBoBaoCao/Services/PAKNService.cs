@@ -57,9 +57,9 @@ namespace DongBoBaoCao.Core.Services
 
         public void RandomChiTieuBaoCao()
         {
-            var dataYears = new List<int> { 2016, 2017, 2018, 2019, 2020 };
-            var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-            var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+            var dataYears = new List<int> { 2019, 2020 };
+            var months = new List<int> { 6, 7, 8, 9, 10, 11, 12 };
+            var periodIds = new List<int> {  6, 7, 8, 9, 10, 11, 12 };
 
             var officeCodes = new List<string> { "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40" };
 
@@ -76,243 +76,187 @@ namespace DongBoBaoCao.Core.Services
                         var indicators = new List<Indicator>();
 
                         #region indicator
-                        var DH03 = new Indicator
+                        var DH02 = new Indicator
                         {
-                            Code = "DH03",
+                            Code = "DH02",
                             value = 600 + random.Next(0, 300)
                         };
-                        indicators.Add(DH03);
+                        indicators.Add(DH02);
 
-                        var DH0301 = new Indicator
+                        var DH0201 = new Indicator
                         {
-                            Code = "DH0301",
-                            value = DH03.value
+                            Code = "DH0201",
+                            value = DH02.value
                         };
-                        indicators.Add(DH0301);
+                        indicators.Add(DH0201);
 
-                        var DH030101 = new Indicator
+                        var DH020101 = new Indicator
                         {
-                            Code = "DH030101",
-                            value = DH0301.value
+                            Code = "DH020101",
+                            value = DH02.value
                         };
-                        indicators.Add(DH030101);
+                        indicators.Add(DH020101);
 
-                        var DH03010101 = new Indicator
+                        var DH02010101 = new Indicator
                         {
-                            Code = "DH03010101",
-                            value = DH030101.value * (75 + random.Next(-7, 7)) / 100
+                            Code = "DH02010101",
+                            value = DH020101.value * (18 + random.Next(-7, 7)) / 100
                         };
-                        indicators.Add(DH03010101);
+                        indicators.Add(DH02010101);
 
-                        var DH03010102 = new Indicator
+                        var DH02010102 = new Indicator
                         {
-                            Code = "DH03010102",
-                            value = DH030101.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010102",
+                            value = DH020101.value * (18 + random.Next(-2, 2)) / 100
                         };
-                        indicators.Add(DH03010102);
+                        indicators.Add(DH02010102);
 
-                        var DH03010103 = new Indicator
+                        var DH02010103 = new Indicator
                         {
-                            Code = "DH03010103",
-                            value = DH030101.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010103",
+                            value = DH020101.value * (18 + random.Next(-2, 2)) / 100
                         };
-                        indicators.Add(DH03010103);
+                        indicators.Add(DH02010103);
 
-                        var DH03010104 = new Indicator
+                        var DH02010104 = new Indicator
                         {
-                            Code = "DH03010104",
-                            value = DH030101.value - DH03010101.value - DH03010102.value - DH03010103.value
+                            Code = "DH02010104",
+                            value = DH020101.value * (18 + random.Next(-2, 2)) / 100
                         };
-                        indicators.Add(DH03010104);
+                        indicators.Add(DH02010104);
+                        var DH02010105 = new Indicator
+                        {
+                            Code = "DH02010105",
+                            value = DH020101.value - DH02010101.value - DH02010102.value - DH02010103.value - DH02010104.value
+                        };
+                        indicators.Add(DH02010105);
 
-                        var DH030102 = new Indicator
+                        var DH020102 = new Indicator
                         {
-                            Code = "DH030102",
-                            value = DH0301.value
+                            Code = "DH020102",
+                            value = DH020101.value *(30 + random.Next(-5,5))/100
                         };
-                        indicators.Add(DH030102);
+                        indicators.Add(DH020102);
 
-                        var DH03010201 = new Indicator
+                        var DH02010201 = new Indicator
                         {
-                            Code = "DH03010201",
-                            value = DH030102.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010201",
+                            value = DH020102.value * (30 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010201);
+                        indicators.Add(DH02010201);
 
-                        var DH03010202 = new Indicator
+                        var DH02010202 = new Indicator
                         {
-                            Code = "DH03010202",
-                            value = DH030102.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010202",
+                            value = DH020102.value * (10 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010202);
+                        indicators.Add(DH02010202);
 
-                        var DH03010203 = new Indicator
+                        var DH02010203 = new Indicator
                         {
-                            Code = "DH03010203",
-                            value = DH030102.value * (15 + random.Next(-2, 2)) / 100
+                            Code = "DH02010203",
+                            value = DH020102.value * (30 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010202);
+                        indicators.Add(DH02010203);
 
-                        var DH03010204 = new Indicator
+                        var DH02010204 = new Indicator
                         {
-                            Code = "DH03010204",
-                            value = DH030102.value * (7 + random.Next(-2, 2)) / 100
+                            Code = "DH02010204",
+                            value = DH020102.value - DH02010201.value - DH02010202.value - DH02010203.value
                         };
-                        indicators.Add(DH03010204);
+                        indicators.Add(DH02010204);
 
-                        var DH03010206 = new Indicator
+                        var DH020103 = new Indicator
                         {
-                            Code = "DH03010206",
-                            value = DH030102.value * (7 + random.Next(-2, 2)) / 100
+                            Code = "DH020103",
+                            value = DH0201.value * (50 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010206);
+                        indicators.Add(DH020103);
 
-                        var DH03010207 = new Indicator
+                        var DH02010301 = new Indicator
                         {
-                            Code = "DH03010207",
-                            value = DH030102.value * (7 + random.Next(-2, 2)) / 100
+                            Code = "DH02010301",
+                            value = DH020103.value * (5 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010207);
+                        indicators.Add(DH02010301);
 
-                        var DH03010208 = new Indicator
+                        var DH02010302 = new Indicator
                         {
-                            Code = "DH03010208",
-                            value = DH030102.value * (25 + random.Next(-2, 2)) / 100
+                            Code = "DH02010302",
+                            value = DH020103.value * (30 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010208);
+                        indicators.Add(DH02010302);
 
-                        var DH03010209 = new Indicator
+                        var DH02010303 = new Indicator
                         {
-                            Code = "DH03010209",
-                            value = DH030102.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010303",
+                            value = DH020103.value * (5 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010209);
+                        indicators.Add(DH02010303);
 
-                        var DH03010210 = new Indicator
+                        var DH02010304 = new Indicator
                         {
-                            Code = "DH03010209",
-                            value = DH030102.value * (5 + random.Next(-2, 2)) / 100
+                            Code = "DH02010304",
+                            value = DH020103.value * (5 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010210);
+                        indicators.Add(DH02010304);
 
-                        var DH03010205 = new Indicator
+                        var DH02010305 = new Indicator
                         {
-                            Code = "DH03010205",
-                            value = DH030102.value - DH03010201.value - DH03010202.value - DH03010203.value - DH03010204.value - DH03010206.value - DH03010207.value - DH03010208.value - DH03010209.value - DH03010210.value
+                            Code = "DH02010305",
+                            value = DH020103.value * (30 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010205);
+                        indicators.Add(DH02010305);
 
-                        var DH030103 = new Indicator
+                        var DH02010306 = new Indicator
                         {
-                            Code = "DH030103",
-                            value = DH0301.value
+                            Code = "DH02010306",
+                            value = DH020103.value - DH02010301.value - DH02010302.value - DH02010303.value - DH02010304.value - DH02010305.value 
                         };
-                        indicators.Add(DH030103);
+                        indicators.Add(DH02010306);
 
-                        var DH03010301 = new Indicator
+                        var DH020104 = new Indicator
                         {
-                            Code = "DH03010301",
-                            value = DH030103.value * (20 + random.Next(-5, 5)) / 100
+                            Code = "Dh020104",
+                            value = DH0201.value * (5 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010301);
+                        indicators.Add(DH020104);
 
-                        var DH0301030101 = new Indicator
+                        var DH02010401 = new Indicator
                         {
-                            Code = "DH0301030101",
-                            value = DH03010301.value * (90 + random.Next(-2, 2)) / 100
+                            Code = "DH02010401",
+                            value = DH020104.value * (40 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH0301030101);
+                        indicators.Add(DH02010401);
 
-                        var DH0301030102 = new Indicator
+                        var DH02010402 = new Indicator
                         {
-                            Code = "DH03010303",
-                            value = DH03010301.value - DH0301030101.value
+                            Code = "DH02010402",
+                            value = DH020104.value - DH02010401.value
                         };
-                        indicators.Add(DH0301030102);
+                        indicators.Add(DH02010402);
 
-                        var DH03010302 = new Indicator
+                        var DH020105 = new Indicator
                         {
-                            Code = "DH03010302",
-                            value = DH030103.value - DH03010301.value
+                            Code = "DH020105",
+                            value = DH0201.value * (5 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH03010302);
+                        indicators.Add(DH020105);
 
-                        var DH0301030201 = new Indicator
+                        var DH02010501 = new Indicator
                         {
-                            Code = "DH0301030201",
-                            value = DH03010302.value * (60 + random.Next(-5, 5)) / 100
+                            Code = "DH02010501",
+                            value = DH020105.value * (40 + random.Next(-5, 5)) / 100
                         };
-                        indicators.Add(DH0301030201);
+                        indicators.Add(DH02010501);
 
-                        var DH0301030202 = new Indicator
+                        var DH02010502 = new Indicator
                         {
-                            Code = "DH0301030202",
-                            value = DH03010302.value * (30 + random.Next(-5, 5)) / 100
+                            Code = "DH02010502",
+                            value = DH020105.value - DH02010501.value
                         };
-                        indicators.Add(DH0301030201);
-
-                        var DH0301030203 = new Indicator
-                        {
-                            Code = "DH0301030203",
-                            value = DH03010302.value - DH0301030201.value - DH0301030202.value
-                        };
-                        indicators.Add(DH0301030203);
-
-                        var DH030104 = new Indicator
-                        {
-                            Code = "DH030104",
-                            value = DH0301.value
-                        };
-                        indicators.Add(DH030104);
-
-                        var DH03010401 = new Indicator
-                        {
-                            Code = "DH03010401",
-                            value = DH030104.value * (60 + random.Next(-5, 5)) / 100
-                        };
-                        indicators.Add(DH03010401);
-
-                        var DH03010402 = new Indicator
-                        {
-                            Code = "DH03010402",
-                            value = DH030104.value * (25 + random.Next(-5, 5)) / 100
-                        };
-                        indicators.Add(DH03010402);
-
-                        var DH03010403 = new Indicator
-                        {
-                            Code = "DH03010403",
-                            value = DH030104.value - DH03010401.value - DH030104.value
-                        };
-                        indicators.Add(DH03010403);
-
-                        var DH0303 = new Indicator
-                        {
-                            Code = "DH0303",
-                            value = DH03.value
-                        };
-                        indicators.Add(DH0303);
-
-                        var DH030301 = new Indicator
-                        {
-                            Code = "DH030301",
-                            value = DH0303.value * (50 + random.Next(-1, 1)) / 100
-                        };
-                        indicators.Add(DH030301);
-
-                        var DH030302 = new Indicator
-                        {
-                            Code = "DH030302",
-                            value = DH0303.value * (48 + random.Next(-1, 1)) / 100
-                        };
-                        indicators.Add(DH030302);
-
-                        var DH030303 = new Indicator
-                        {
-                            Code = "DH030303",
-                            value = DH0303.value - DH030301.value - DH030302.value
-                        };
-                        indicators.Add(DH030303);
+                        indicators.Add(DH02010502);
+                       
                         #endregion
 
                         var officeCode = officeCodes[k];
