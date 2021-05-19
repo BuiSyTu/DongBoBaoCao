@@ -4,14 +4,9 @@ namespace DongBoBaoCao.Core.Interfaces
 {
     public interface IHttpService
     {
-        string Get(string baseAddress, string uri, string bearToken, object jObject);
-        string Get(string address, string bearToken, object jObject);
-        string Post(string baseAddress, string uri, string bearToken, object jObject);
+        string Get(string address, string bearToken);
         string Post(string address, string bearToken, object jObject);
         string Put(string address, string bearToken, object jObject);
         string Delete(string address, string bearToken, object jObject);
-
-        string PostVinhLong(string address, string bearToken, object jObject);
-        string GetVinhLong(string address, string bearToken, object jObject);
     }
 }

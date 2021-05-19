@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.Configuration;
 using DongBoBaoCao.Core.Interfaces;
 using System.Collections.Generic;
+using DongBoBaoCao.Interfaces;
 using System;
 using DongBoBaoCao.ViewModels;
 using Newtonsoft.Json;
 
 namespace DongBoBaoCao.Services
 {
-    public class CDDHService
+    public class CDDHService : ICDDHService
     {
         private readonly IConfiguration _config;
         private readonly IHttpService _httpService;
@@ -54,19 +55,15 @@ namespace DongBoBaoCao.Services
             _limit = Convert.ToInt32(_config.GetSection("limit").Value);
         }
 
-        public string AddChiTieuBaoCao()
+        public void AddChiTieuBaoCao()
         {
-            int success = 0;
-            int fail1 = 0;
-            int fail2 = 0;
-
-            var dataYears = new List<int> { 2019, 2020, 2021 };
+            var dataYears = new List<int> { 2019, 2020 };
             var months = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
             var periodIds = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
             var officeCodes = new List<string> {
-                 "000-00-00-H40",
-                 "000-00-24-H40", "000-00-12-H40", "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40"};
+                "000-00-19-H40", "000-00-20-H40", "000-00-21-H40", "000-00-22-H40", "000-00-23-H40", "000-00-25-H40", "000-00-26-H40", "000-00-27-H40", "000-00-28-H40", "000-00-02-H40", "000-00-03-H40", "000-00-04-H40", "000-00-05-H40", "000-00-06-H40", "000-00-07-H40", "000-00-08-H40", "000-00-09-H40", "000-00-10-H40", "000-00-11-H40", "000-00-13-H40", "000-00-14-H40", "000-00-15-H40", "000-00-16-H40", "000-00-17-H40", "000-00-18-H40"
+            };
             var indicatorCodes = new List<string> { 
                 "DH04010101",
                 "DH04010102",
@@ -107,11 +104,7 @@ namespace DongBoBaoCao.Services
 
                             string filterResult = _httpService.Post(_urlFilter, null, indicatorInput);
 
-                            if (string.IsNullOrEmpty(filterResult))
-                            {
-                                fail1++;
-                                continue;
-                            }
+                            if (string.IsNullOrEmpty(filterResult)) continue;
 
                             var indicatorOutput = JsonConvert.DeserializeObject<IndicatorOutput>(filterResult);
                             int value = indicatorOutput.Value;
@@ -127,26 +120,16 @@ namespace DongBoBaoCao.Services
                                 textValue = value.ToString()
                             };
 
-                            var addResult = _httpService.Post(_urlUpdate, null, oUDataItem);
-                            if (string.IsNullOrEmpty(addResult))
-                            {
-                                fail2++;
-                                continue;
-                            }
-                            success++;
+                            _httpService.Post(_urlUpdate, null, oUDataItem);
+
                         }
                     }
                 }
             }
-
-            return $"success: {success}, fail1: {fail1}, fail2: {fail2}";
         }
 
-        public string CreateDanhSachDuLieu()
+        public void CreateDanhSachDuLieu()
         {
-            int fail1 = 0;
-            int fail2 = 0;
-            int success = 0;
             for (var year = _fromYear; year <= _toYear; year++)
             {
                 for (var month = _fromMonth; month <= _toMonth; month++)
@@ -164,8 +147,30 @@ namespace DongBoBaoCao.Services
                     }
                 }
             }
+        }
 
-            return $"success: {success}, fail1: {fail1}, fail2: {fail2}";
+        public ICollection<CDDHViewModel> GetDanhSachDuLieu(int? page)
+        {
+            string token = _loginToken ?? _loginService.GetToken();
+
+            var input = new DanhSachDuLieuInput
+            {
+                token = token,
+                fromDate = _fromDate,
+                toDate = _toDate,
+                page = page ?? 1,
+                limit = _limit
+            };
+
+            string rs = _httpService.Post(_urlGet, _tokenGet, input);
+
+            if (string.IsNullOrEmpty(rs))
+            {
+                return null;
+            }
+
+            var result = JsonConvert.DeserializeObject<APIResult<CDDHViewModel>>(rs);
+            return result.data;
         }
 
         public ICollection<CDDHViewModel> GetDanhSachDuLieu(int month, int year, int? page)
@@ -388,10 +393,6 @@ namespace DongBoBaoCao.Services
                 }
             }
 
-        }
-        public void Truncate()
-        {
-            _httpService.Get("https://baocao.namdinh.gov.vn/_vti_bin/td.bcdh/bcdhservice.svc/CDDH/Truncate", _tokenGet);
         }
     }
 }

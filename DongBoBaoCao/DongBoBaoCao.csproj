@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Interfaces\**" />
-    <Compile Remove="ViewModels\**" />
-    <Content Remove="Interfaces\**" />
-    <Content Remove="ViewModels\**" />
-    <EmbeddedResource Remove="Interfaces\**" />
-    <EmbeddedResource Remove="ViewModels\**" />
-    <None Remove="Interfaces\**" />
-    <None Remove="ViewModels\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Remove="Controllers\BCController.cs" />
     <Compile Remove="Controllers\CDDHController.cs" />
     <Compile Remove="Controllers\DVCController.cs" />
@@ -26,18 +15,11 @@
     <Compile Remove="Controllers\QLCHController.cs" />
     <Compile Remove="Controllers\QLVBController.cs" />
     <Compile Remove="Controllers\TestController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Interfaces\IBCService.cs" />
-    <Compile Include="Interfaces\ICDDHService.cs" />
-    <Compile Include="Interfaces\IDuLieuChungService.cs" />
-    <Compile Include="Interfaces\IDVCService.cs" />
-    <Compile Include="Interfaces\IKNTCService.cs" />
-    <Compile Include="Interfaces\IPAKNService.cs" />
-    <Compile Include="Interfaces\IQLCBService.cs" />
-    <Compile Include="Interfaces\IQLCHService.cs" />
-    <Compile Include="Interfaces\IQLVBService.cs" />
+    <Compile Remove="Services\BCService.cs" />
+    <Compile Remove="Services\KNTCService.cs" />
+    <Compile Remove="Services\QLCBService.cs" />
+    <Compile Remove="Services\QLCHService.cs" />
+    <Compile Remove="Services\QLVBService.cs" />
   </ItemGroup>
 
   <ItemGroup>
